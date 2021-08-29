@@ -2,7 +2,6 @@ const { db } = require('../database');
 
 module.exports = {
   products: (req, res) => {
-    // console.log(db)
     const productId = Number(req.url.split('=')[1]);
     const newNum = productId + 5;
 
@@ -12,11 +11,9 @@ module.exports = {
     ])
       .then((results) => {
         const products = results[0];
-        const styles = {};
-        styles.product_id = productId;
-        styles.results = results[1].slice();
-        // console.log(styles)
-        const finalStyles = styles.results.map((style) => {
+        const styles = results[1].slice();
+
+        const finalStyles = styles.map((style) => {
           let d = null;
           if (style.default_style === 1) {
             d = true;
@@ -33,10 +30,12 @@ module.exports = {
           return newData;
         });
 
+        const finalStylesObj = { product_id: productId, results: finalStyles };
+
         const createStyle = async () => {
           let finalPhotosAndSkus = [];
           return new Promise((resolve, reject) => {
-            styles.results.forEach((style) => {
+            styles.forEach((style) => {
               Promise.all([
                 db.any('select * from photos where styleId=$1', [style.id]),
                 db.any('select * from skus where styleId=$1', [style.id]),
@@ -77,7 +76,7 @@ module.exports = {
                     };
                     return newData;
                   });
-                  finalPhotosAndSkus = [finalProducts, finalStyles, finalPhotos, finalSkus];
+                  finalPhotosAndSkus = [finalProducts, finalStylesObj, finalPhotos, finalSkus];
                   resolve(finalPhotosAndSkus);
                 })
                 .catch((err) => {
@@ -95,27 +94,25 @@ module.exports = {
 
         createStyle().then((finalResults) => {
           const responseProducts = finalResults[0];
-          // let styles = { product_id: productId, results: finalResults[1]};
-          let responseStyles = finalResults[1].slice();
+          const responseStyles = Object.assign(finalResults[1], {});
+          const responseStylesArr = responseStyles.results;
           const responseSkus = Object.assign(finalResults[3], {});
 
           const responsePhotos = finalResults[2];
-          responseStyles = responseStyles.map((style) => {
+          responseStylesArr.map((style) => {
             const newObj = Object.assign(style, {});
             newObj.photos = responsePhotos;
             newObj.skus = responseSkus;
             return newObj;
           });
-          // console.log(responseStyles)
+
           const response = [responseProducts, responseStyles];
-          // console.log('products request response: ', response[1][0].skus);
+          // console.log('products request response: ', response[1]);
           res.send(response);
         });
       })
       .catch((err) => {
-        // console.log(err);
         res.send(400, err);
       });
-    //  db.any('select * from products where product_id between $1 and $2', [productId, newNum])
   },
 };
