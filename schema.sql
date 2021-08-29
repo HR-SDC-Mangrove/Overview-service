@@ -13,6 +13,7 @@ CREATE SCHEMA overview_schema
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     Primary Key (product_key)
   )
+  CREATE INDEX ON products(product_id)
   CREATE TABLE styles (
     style_key UUID DEFAULT uuid_generate_v4 (),
     id INT NOT NULL UNIQUE,
@@ -23,6 +24,7 @@ CREATE SCHEMA overview_schema
     default_style SMALLINT,
     Primary Key (style_key)
   )
+  CREATE INDEX ON styles(productId)
   CREATE TABLE photos (
     photo_key UUID DEFAULT uuid_generate_v4 (),
     id INT NOT NULL UNIQUE,
