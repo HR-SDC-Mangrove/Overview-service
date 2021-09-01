@@ -2,6 +2,7 @@ const { db } = require('../database');
 
 module.exports = {
   products: (req, res) => {
+
     const productId = Number(req.url.split('=')[1]);
     // console.log(productId)
     // const newNum = productId + 5;
@@ -89,19 +90,16 @@ module.exports = {
                   }
                 }
               });
-              if (!newPhotoArr) {
-                newPhotoArr =[{
-                  thumbnail_url: null,
-                  url: null,
+
+              if (newPhotoArr === undefined) {
+                newPhotoArr = [{
+                  thumbnail_url: "https://i.ibb.co/H40jXLQ/download.jpg",
+                  url: "https://i.ibb.co/H40jXLQ/download.jpg",
                 }];
               }
-              if (!newSkuArr) {
-                newSkuArr = {
-                  null: {
-                    quantity: null,
-                    size: null,
-                  },
-                };
+
+              if (newSkuArr === undefined) {
+                newSkuArr = [{}];
               }
 
               let d = false;
@@ -124,6 +122,7 @@ module.exports = {
                 skus: newSkuArr[0],
               };
               console.log(newStyleObj)
+              // console.log(newStyleObj)
               return newStyleObj;
             });
 
