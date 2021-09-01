@@ -2,7 +2,6 @@ const { db } = require('../database');
 
 module.exports = {
   products: (req, res) => {
-
     const productId = Number(req.url.split('=')[1]);
     // console.log(productId)
     // const newNum = productId + 5;
@@ -79,7 +78,6 @@ module.exports = {
                 if (skuArr.length) {
                   if (skuArr[0].styleid === style.id) {
                     newSkuArr = skuArr.map((sku) => {
-
                       newSkuObj[sku.id] = {
                         quantity: sku.quantity,
                         size: sku.size,
@@ -93,8 +91,8 @@ module.exports = {
 
               if (newPhotoArr === undefined) {
                 newPhotoArr = [{
-                  thumbnail_url: "https://i.ibb.co/H40jXLQ/download.jpg",
-                  url: "https://i.ibb.co/H40jXLQ/download.jpg",
+                  thumbnail_url: 'https://i.ibb.co/H40jXLQ/download.jpg',
+                  url: 'https://i.ibb.co/H40jXLQ/download.jpg',
                 }];
               }
 
@@ -104,12 +102,12 @@ module.exports = {
 
               let d = false;
               if (style.default_style === 1) {
-                d = true
+                d = true;
               }
 
               let salePrice = null;
               if (style.sale_price !== 'null') {
-                salePrice = style.sale_price
+                salePrice = style.sale_price;
               }
 
               const newStyleObj = {
@@ -121,8 +119,6 @@ module.exports = {
                 photos: newPhotoArr,
                 skus: newSkuArr[0],
               };
-              console.log(newStyleObj)
-              // console.log(newStyleObj)
               return newStyleObj;
             });
 
@@ -152,9 +148,7 @@ module.exports = {
               features: finalFeatures,
             };
 
-
             const response = [finalProduct, finalStyles];
-            // console.log(response[1].results[0].skus);
             res.send(response);
           });
       });
