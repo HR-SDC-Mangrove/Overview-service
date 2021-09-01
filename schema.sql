@@ -14,6 +14,16 @@ CREATE SCHEMA overview_schema
     Primary Key (product_key)
   )
   CREATE INDEX ON products(product_id)
+  CREATE TABLE features (
+    feature_key UUID DEFAULT uuid_generate_v4 (),
+    id INT NOT NULL UNIQUE,
+    product_id INT REFERENCES products (product_id),
+    feature VARCHAR(50),
+    feature_value VARCHAR(255),
+    Primary Key (feature_key)
+  )
+  CREATE INDEX ON features(product_id)
+
   CREATE TABLE styles (
     style_key UUID DEFAULT uuid_generate_v4 (),
     id INT NOT NULL UNIQUE,
@@ -43,4 +53,13 @@ CREATE SCHEMA overview_schema
     Primary Key (sku_key)
   )
   CREATE INDEX ON skus(styleId)
+  CREATE TABLE related (
+    related_key UUID DEFAULT uuid_generate_v4 (),
+    id INT NOT NULL UNIQUE,
+    product_id INT REFERENCES products(product_id),
+    related_id INT,
+    Primary Key (related_key)
+
+  )
+  CREATE INDEX ON related(product_id)
 
