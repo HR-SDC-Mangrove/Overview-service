@@ -73,16 +73,17 @@ module.exports = {
                   }
                 }
               });
-
+              const newSkuObj = {};
               skuData.forEach((skuArr) => {
                 if (skuArr.length) {
                   if (skuArr[0].styleid === style.id) {
                     newSkuArr = skuArr.map((sku) => {
-                      const newSkuObj = {};
+
                       newSkuObj[sku.id] = {
                         quantity: sku.quantity,
                         size: sku.size,
                       };
+
                       return newSkuObj;
                     });
                   }
@@ -103,13 +104,19 @@ module.exports = {
                 };
               }
 
+              let d = false;
+              if (style.default_style === 1) {
+                d = true
+              }
+
               const newStyleObj = {
                 style_id: style.id,
                 name: style.product_name,
                 original_price: style.original_price,
                 sale_price: style.sale_price,
+                default: d,
                 photos: newPhotoArr,
-                skus: newSkuArr,
+                skus: newSkuArr[0],
               };
               return newStyleObj;
             });
@@ -141,7 +148,7 @@ module.exports = {
 
 
             const response = [finalProduct, finalStyles];
-            console.log(response);
+            console.log(response[1].results[0].skus);
             res.send(response);
           });
       });
