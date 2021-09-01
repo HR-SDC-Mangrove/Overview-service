@@ -109,17 +109,24 @@ module.exports = {
                 d = true
               }
 
+              let salePrice = null;
+              if (style.sale_price !== 'null') {
+                salePrice = style.sale_price
+              }
+
               const newStyleObj = {
                 style_id: style.id,
                 name: style.product_name,
                 original_price: style.original_price,
-                sale_price: style.sale_price,
+                sale_price: salePrice,
                 default: d,
                 photos: newPhotoArr,
                 skus: newSkuArr[0],
               };
+              console.log(newStyleObj)
               return newStyleObj;
             });
+
             const finalStyles = {};
             finalStyles.product_id = productId;
             finalStyles.results = stylesArr;
@@ -148,7 +155,7 @@ module.exports = {
 
 
             const response = [finalProduct, finalStyles];
-            console.log(response[1].results[0].skus);
+            // console.log(response[1].results[0].skus);
             res.send(response);
           });
       });
