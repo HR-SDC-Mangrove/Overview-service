@@ -1,3 +1,4 @@
+const e = require('express');
 const { db } = require('../database');
 
 module.exports = {
@@ -12,41 +13,91 @@ module.exports = {
 
     ])
       .then((results) => {
-        let idsForPhotos = results[1].slice();
-        idsForPhotos = idsForPhotos.map((item) => item.id);
 
-        const createPhotos = () => {
-          const photos = [];
-          return new Promise((resolve, reject) => {
-            idsForPhotos.forEach((num) => {
-              // console.log(num)
-              db.any('select * from photos where styleId=$1', [num])
-                .then((photoResult) => {
-                  photos.push(photoResult);
-                  if (photos.length === idsForPhotos.length) {
-                    resolve(photos);
-                  }
-                })
-                .catch((err) => reject(err));
-            });
-          });
-        };
+        let emptyStyles;
+        let finalProduct = {}
+        let finalStyles = {};
 
-        const createSkus = () => {
-          const skus = [];
-          return new Promise((resolve, reject) => {
-            idsForPhotos.forEach((num) => {
-              db.any('select * from skus where styleId=$1', [num])
-                .then((skuResult) => {
-                  skus.push(skuResult);
-                  if (skus.length === idsForPhotos.length) {
-                    resolve(skus);
-                  }
-                })
-                .catch((err) => reject(err));
+        const features = results[2];
+
+        const finalFeatures = features.map((feature) => {
+          const newFeatureObj = {
+            feature: feature.feature,
+            value: feature.feature_value,
+          };
+          return newFeatureObj;
+        });
+
+        if (!results[1].length) {
+          finalProduct = {
+            id: productId,
+            name: results[0][0].product_name,
+            slogan: results[0][0].product_slogan,
+            description: results[0][0].product_description,
+            category: results[0][0].product_category,
+            default_price: results[0][0].default_price,
+            created_at: results[0][0].created_at,
+            updated_at: results[0][0].updated_at,
+            features: finalFeatures,
+          };
+          finalStyles.product_id = productId;
+          finalStyles.results = [
+            {
+              style_id: null,
+              name: null,
+              original_price:null,
+              sale_price: null,
+              default: true,
+              photos: [{
+                thumbnail_url: 'https://i.ibb.co/H40jXLQ/download.jpg',
+                url: 'https://i.ibb.co/H40jXLQ/download.jpg',
+              }],
+              newSkuArr: [{}],
+            }
+          ]
+
+
+
+          const responseWithoutStyle = [finalProduct, finalStyles];
+          console.log(responseWithoutStyle)
+          res.send(responseWithoutStyle)
+        } else {
+          let idsForPhotos = results[1].slice();
+          idsForPhotos = idsForPhotos.map((item) => item.id);
+
+          const createPhotos = () => {
+            const photos = [];
+            return new Promise((resolve, reject) => {
+              idsForPhotos.forEach((num) => {
+                // console.log(num)
+                db.any('select * from photos where styleId=$1', [num])
+                  .then((photoResult) => {
+                    photos.push(photoResult);
+                    if (photos.length === idsForPhotos.length) {
+                      resolve(photos);
+                    }
+                  })
+                  .catch((err) => reject(err));
+              });
             });
-          });
-        };
+          };
+
+          const createSkus = () => {
+            const skus = [];
+            return new Promise((resolve, reject) => {
+              idsForPhotos.forEach((num) => {
+                db.any('select * from skus where styleId=$1', [num])
+                  .then((skuResult) => {
+                    skus.push(skuResult);
+                    if (skus.length === idsForPhotos.length) {
+                      resolve(skus);
+                    }
+                  })
+                  .catch((err) => reject(err));
+              });
+            });
+          };
+
 
         Promise.all([
           createPhotos(),
@@ -122,21 +173,12 @@ module.exports = {
               return newStyleObj;
             });
 
-            const finalStyles = {};
+            finalStyles = {};
             finalStyles.product_id = productId;
             finalStyles.results = stylesArr;
 
-            const features = results[2];
 
-            const finalFeatures = features.map((feature) => {
-              const newFeatureObj = {
-                feature: feature.feature,
-                value: feature.feature_value,
-              };
-              return newFeatureObj;
-            });
-
-            const finalProduct = {
+            finalProduct = {
               id: productId,
               name: results[0][0].product_name,
               slogan: results[0][0].product_slogan,
@@ -151,6 +193,7 @@ module.exports = {
             const response = [finalProduct, finalStyles];
             res.send(response);
           });
+        }
       });
   },
 };
