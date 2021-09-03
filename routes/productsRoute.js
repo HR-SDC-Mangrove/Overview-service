@@ -1,4 +1,3 @@
-const e = require('express');
 const { db } = require('../database');
 
 module.exports = {
@@ -13,9 +12,7 @@ module.exports = {
 
     ])
       .then((results) => {
-
-        let emptyStyles;
-        let finalProduct = {}
+        let finalProduct = {};
         let finalStyles = {};
 
         const features = results[2];
@@ -56,10 +53,8 @@ module.exports = {
             }
           ]
 
-
-
           const responseWithoutStyle = [finalProduct, finalStyles];
-          console.log(responseWithoutStyle)
+          // console.log(responseWithoutStyle)
           res.send(responseWithoutStyle)
         } else {
           let idsForPhotos = results[1].slice();
@@ -98,101 +93,100 @@ module.exports = {
             });
           };
 
+          Promise.all([
+            createPhotos(),
+            createSkus(),
+          ])
+            .then((photoNSku) => {
+              const photoData = photoNSku[0];
+              const skuData = photoNSku[1];
+              const dbStyles = results[1];
 
-        Promise.all([
-          createPhotos(),
-          createSkus(),
-        ])
-          .then((photoNSku) => {
-            const photoData = photoNSku[0];
-            const skuData = photoNSku[1];
-            const dbStyles = results[1];
-
-            const stylesArr = dbStyles.map((style) => {
-              let newPhotoArr;
-              let newSkuArr;
-              photoData.forEach((photoArr) => {
-                if (photoArr.length) {
-                  if (photoArr[0].styleid === style.id) {
-                    newPhotoArr = photoArr.map((photo) => {
-                      const newPhotoOBj = {
-                        thumbnail_url: photo.thumbnail_url,
-                        url: photo.style_url,
-                      };
-                      return newPhotoOBj;
-                    });
+              const stylesArr = dbStyles.map((style) => {
+                let newPhotoArr;
+                let newSkuArr;
+                photoData.forEach((photoArr) => {
+                  if (photoArr.length) {
+                    if (photoArr[0].styleid === style.id) {
+                      newPhotoArr = photoArr.map((photo) => {
+                        const newPhotoOBj = {
+                          thumbnail_url: photo.thumbnail_url,
+                          url: photo.style_url,
+                        };
+                        return newPhotoOBj;
+                      });
+                    }
                   }
-                }
-              });
-              const newSkuObj = {};
-              skuData.forEach((skuArr) => {
-                if (skuArr.length) {
-                  if (skuArr[0].styleid === style.id) {
-                    newSkuArr = skuArr.map((sku) => {
-                      newSkuObj[sku.id] = {
-                        quantity: sku.quantity,
-                        size: sku.size,
-                      };
+                });
+                const newSkuObj = {};
+                skuData.forEach((skuArr) => {
+                  if (skuArr.length) {
+                    if (skuArr[0].styleid === style.id) {
+                      newSkuArr = skuArr.map((sku) => {
+                        newSkuObj[sku.id] = {
+                          quantity: sku.quantity,
+                          size: sku.size,
+                        };
 
-                      return newSkuObj;
-                    });
+                        return newSkuObj;
+                      });
+                    }
                   }
+                });
+
+                if (newPhotoArr === undefined) {
+                  newPhotoArr = [{
+                    thumbnail_url: 'https://i.ibb.co/H40jXLQ/download.jpg',
+                    url: 'https://i.ibb.co/H40jXLQ/download.jpg',
+                  }];
                 }
+
+                if (newSkuArr === undefined) {
+                  newSkuArr = [{}];
+                }
+
+                let d = false;
+                if (style.default_style === 1) {
+                  d = true;
+                }
+
+                let salePrice = null;
+                if (style.sale_price !== 'null') {
+                  salePrice = style.sale_price;
+                }
+
+                const newStyleObj = {
+                  style_id: style.id,
+                  name: style.product_name,
+                  original_price: style.original_price,
+                  sale_price: salePrice,
+                  default: d,
+                  photos: newPhotoArr,
+                  skus: newSkuArr[0],
+                };
+                return newStyleObj;
               });
 
-              if (newPhotoArr === undefined) {
-                newPhotoArr = [{
-                  thumbnail_url: 'https://i.ibb.co/H40jXLQ/download.jpg',
-                  url: 'https://i.ibb.co/H40jXLQ/download.jpg',
-                }];
-              }
+              finalStyles = {};
+              finalStyles.product_id = productId;
+              finalStyles.results = stylesArr;
 
-              if (newSkuArr === undefined) {
-                newSkuArr = [{}];
-              }
-
-              let d = false;
-              if (style.default_style === 1) {
-                d = true;
-              }
-
-              let salePrice = null;
-              if (style.sale_price !== 'null') {
-                salePrice = style.sale_price;
-              }
-
-              const newStyleObj = {
-                style_id: style.id,
-                name: style.product_name,
-                original_price: style.original_price,
-                sale_price: salePrice,
-                default: d,
-                photos: newPhotoArr,
-                skus: newSkuArr[0],
+              finalProduct = {
+                id: productId,
+                name: results[0][0].product_name,
+                slogan: results[0][0].product_slogan,
+                description: results[0][0].product_description,
+                category: results[0][0].product_category,
+                default_price: results[0][0].default_price,
+                created_at: results[0][0].created_at,
+                updated_at: results[0][0].updated_at,
+                features: finalFeatures,
               };
-              return newStyleObj;
+
+              const response = [finalProduct, finalStyles];
+              // console.log(response)
+              res.send(response);
             });
-
-            finalStyles = {};
-            finalStyles.product_id = productId;
-            finalStyles.results = stylesArr;
-
-
-            finalProduct = {
-              id: productId,
-              name: results[0][0].product_name,
-              slogan: results[0][0].product_slogan,
-              description: results[0][0].product_description,
-              category: results[0][0].product_category,
-              default_price: results[0][0].default_price,
-              created_at: results[0][0].created_at,
-              updated_at: results[0][0].updated_at,
-              features: finalFeatures,
-            };
-
-            const response = [finalProduct, finalStyles];
-            res.send(response);
-          });
         }
       });
   },
