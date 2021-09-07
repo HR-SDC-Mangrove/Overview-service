@@ -1,9 +1,10 @@
 const chai = require('chai');
+
+const { expect } = chai;
 const { describe, it, beforeEach } = require('mocha');
 const helper = require('../routes/helpers');
 const data = require('./testData');
 
-const { expect } = chai;
 describe('helpers', () => {
   describe('createNonDupFeatures', () => {
     let featureData;
@@ -190,4 +191,5 @@ describe('helpers', () => {
       done();
     });
   });
+
 });
