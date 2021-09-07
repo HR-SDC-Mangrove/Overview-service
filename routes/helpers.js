@@ -41,7 +41,6 @@ module.exports = {
           style_original_price: Number(obj.style_original_price),
           style_default_style: obj.style_default_style,
         };
-
         newStyles.push(newStyle);
       }
       return newStyles;
