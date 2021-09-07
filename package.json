@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha tests --exit",
+    "test:coverage": "nyc mocha tests --exit",
     "start": "nodemon index.js"
   },
   "repository": {
@@ -19,9 +20,13 @@
   },
   "homepage": "https://github.com/HR-SDC-Mangrove/Overview-service#readme",
   "devDependencies": {
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-plugin-import": "^2.24.2"
+    "eslint-plugin-import": "^2.24.2",
+    "mocha": "^9.1.1",
+    "nyc": "^15.1.0"
   },
   "dependencies": {
     "express": "^4.17.1",
