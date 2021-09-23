@@ -1,14 +1,14 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable import/no-extraneous-dependencies */
 const fs = require('fs');
 const csv = require('fast-csv');
 
 const dest = fs.createWriteStream('../json/styles.json');
 const finalObj = {};
+
 const createStyles = async (rows, maxStyleId, minStyleId) => new Promise((resolve) => {
   fs.createReadStream('../csvs/styles.csv')
     .pipe(csv.parse({ headers: true, maxRows: rows }))
-    .on('error', (error) => console.error(error))
+    .on('error', (error) => { console.error(error); })
     .on('data', (row) => {
       const a = async () => {
         const count = row.style_id;
@@ -28,6 +28,7 @@ const createStyles = async (rows, maxStyleId, minStyleId) => new Promise((resolv
       };
       a();
     })
+    // eslint-disable-next-line no-unused-vars
     .on('end', (rowCount) => {
       console.log('finished reading, writing transformed data...✅');
 
@@ -35,5 +36,4 @@ const createStyles = async (rows, maxStyleId, minStyleId) => new Promise((resolv
       resolve(true);
     });
 });
-
 module.exports.createStyles = createStyles;

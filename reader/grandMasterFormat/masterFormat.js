@@ -6,7 +6,6 @@ const { createProducts } = require('./createProducts');
 const { createProductsWithFeatures } = require('./addFeatures');
 const { combine } = require('./combine');
 const { createFinal } = require('./createFinal');
-
 // createStyles(98285, 98284, 0)
 const styleRows = 1958103;
 // 1958103 //1859947//1761760//1663703//1566019//1468560//1370411//1272245//1173688//1075995//977994//880994//783055//685200//587389//489448//391577//294260//196785//98285;
@@ -46,11 +45,10 @@ const createCompleteStyles = async () => new Promise((resolve) => {
                   }
                 });
             }
-          })
-          .catch((err) => console.log(err));
+          });
       }
     })
-    .catch((err) => console.log(err));
+    .catch((err) => { console.log(err); });
 });
 
 const productsRows = 1000012;
@@ -84,17 +82,4 @@ createCompleteStyles()
         });
     }
   })
-  .catch((err) => err);
-
-// for 50k
-// let styleRows = 98285;
-// let styleMaxId = 98284;
-// let styleMinId = 0
-
-// let photoRows = 284146;
-// let photoMaxId = 284208;
-// let photoMinId = 0;
-
-// let skuRows = 566560;
-// let skuMaxId = 566559;
-// let skuMinId = 0;
+  .catch((err) => { console.log(err); });

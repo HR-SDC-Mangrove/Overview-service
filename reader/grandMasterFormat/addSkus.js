@@ -1,5 +1,6 @@
-/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable eqeqeq */
 /* eslint-disable max-len */
+/* eslint-disable import/no-extraneous-dependencies */
 const fs = require('fs');
 const csv = require('fast-csv');
 
@@ -18,8 +19,6 @@ const addSkus = async (rows, endId, startId) => {
         const a = async () => {
           const count = row.id;
           if (count >= startId && count <= endId) {
-            // eslint-disable-next-line max-len
-            // eslint-disable-next-line eqeqeq
             if (count == 50000 || count == 100000 || count == 200000 || count == 300000 || count == 400000 || count == 500000 || count == 560000) {
               console.log('current count ', count);
             }

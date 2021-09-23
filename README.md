@@ -1,6 +1,10 @@
 # Overview-service-mongo
 
----> to use masterformat
-please create csvs directory in reader/
-please create json directory in reader/
-please create finalJSON directory in reader/
+
+- to get data for mongoupload you will need the completed json files
+please download them from here:
+https://drive.google.com/drive/folders/1Uhu7z73PfM3q8WUpLut6qmjHZZb6eh6l?usp=sharing
+
+
+
+

@@ -1,10 +1,11 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable no-unused-vars */
 const fs = require('fs');
 const csv = require('fast-csv');
 
 const dest = fs.createWriteStream('../json/products.json');
 const arr = [];
+
 const createProducts = async (rows, currentCount, currentMinCount) => new Promise((resolve) => {
   fs.createReadStream('../csvs/product.csv')
     .pipe(csv.parse({ headers: true, maxRows: rows }))
@@ -31,9 +32,6 @@ const createProducts = async (rows, currentCount, currentMinCount) => new Promis
       dest.write(JSON.stringify(arr));
       resolve(true);
     });
-// fs.readFile('test.json', (err, data) => {
-//   console.log(data.toString())
-// })
 });
 
 module.exports.createProducts = createProducts;

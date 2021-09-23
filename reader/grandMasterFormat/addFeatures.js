@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable eqeqeq */
 const fs = require('fs');
@@ -10,7 +9,6 @@ const { getFileAsObject } = require('../loader');
 let records = [];
 const createProductsWithFeatures = async (rows, endId, startId) => {
   records = await getFileAsObject('products');
-
   return new Promise((resolve) => {
     fs.createReadStream('../csvs/features.csv')
       .pipe(csv.parse({ headers: true, maxRows: rows }))
@@ -35,6 +33,7 @@ const createProductsWithFeatures = async (rows, endId, startId) => {
         };
         a();
       })
+      // eslint-disable-next-line no-unused-vars
       .on('end', (rowCount) => {
         console.log('finished reading, writing transformed data...');
         dest.write(JSON.stringify(records));
@@ -42,5 +41,4 @@ const createProductsWithFeatures = async (rows, endId, startId) => {
       });
   });
 };
-
 module.exports.createProductsWithFeatures = createProductsWithFeatures;

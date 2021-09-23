@@ -1,4 +1,5 @@
 /* eslint-disable eqeqeq */
+/* eslint-disable max-len */
 /* eslint-disable import/no-extraneous-dependencies */
 const fs = require('fs');
 const csv = require('fast-csv');
@@ -9,6 +10,7 @@ const { getFileAsObject } = require('../loader');
 let records = [];
 const addPhotos = async (rows, endId, startId) => {
   records = await getFileAsObject('styles');
+
   return new Promise((resolve) => {
     fs.createReadStream('../csvs/combined.csv')
       .pipe(csv.parse({ headers: true, maxRows: rows }))
@@ -17,9 +19,8 @@ const addPhotos = async (rows, endId, startId) => {
         const a = async () => {
           const count = row.photo_id;
           if (count >= startId && count <= endId) {
-            // eslint-disable-next-line max-len
             if (count == 25000 || count == 50000 || count == 100000 || count == 150000 || count == 200000 || count == 250000 || count == 284000) {
-              console.log('current count = ', count);
+              console.log('current count ', count);
             }
             const newPhotos = {
               thmbnail_url: row.photo_thumbnail_url,
@@ -42,5 +43,4 @@ const addPhotos = async (rows, endId, startId) => {
       });
   });
 };
-// addPhotos(284146, 284208, 0)
 module.exports.addPhotos = addPhotos;

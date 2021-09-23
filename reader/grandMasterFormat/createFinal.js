@@ -7,9 +7,8 @@ let records = [];
 const createFinal = async () => {
   records = await getFileAsObject('finalProducts');
   records.forEach(async (record) => {
-    const stringRecord = JSON.stringify(record);
-    await stringRecord;
-    dest.write(`${stringRecord}\n`);
+    // eslint-disable-next-line prefer-template
+    await dest.write(JSON.stringify(record) + '\n');
   });
   console.log('created final JSON 🤙');
 };
