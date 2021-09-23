@@ -4,7 +4,8 @@
   "description": "",
   "main": "config.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha tests --timeoout 0 --exit",
+    "test:coverage": "nyc mocha --timeoout 0 tests --exit",
     "start:dev": "nodemon service/index.js"
   },
   "repository": {
@@ -28,7 +29,9 @@
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.24.2",
+    "fast-csv": "^4.3.6",
     "mocha": "^9.1.1",
-    "nodemon": "^2.0.12"
+    "nodemon": "^2.0.12",
+    "nyc": "^15.1.0"
   }
 }

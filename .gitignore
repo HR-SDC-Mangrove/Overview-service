@@ -1,3 +1,5 @@
-config.js
-.DS_store
 node_modules/
+config.js
+reader/csvs
+reader/json
+reader/finalJSON
