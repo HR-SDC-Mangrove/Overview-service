@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable import/no-unresolved */
 import http from 'k6/http';
 import { sleep, check } from 'k6';
 import { Counter } from 'k6/metrics';
@@ -29,4 +31,4 @@ export default function rps200k() {
     'status is 200': (r) => r.status === 200,
     'response body': (r) => r.body.length > 0 === true,
   });
-};
+}
