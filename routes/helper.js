@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-unused-vars */
 module.exports = {
   createFinalStyles: (stylesArr, id) => {
     const finalStyle = {
@@ -39,11 +41,20 @@ module.exports = {
         if (!photos.length) {
           photos = [
             {
-              url: null,
-              thumbnail_url: null,
+              url: 'https://i.ibb.co/1svJRPM/photo-coming-soon.jpg',
+              thumbnail_url: 'https://i.ibb.co/hX7124c/photo-coming-soon.jpg',
             },
           ];
         }
+        if (!Object.keys(style.skus).length) {
+          const noSku = {};
+          noSku[1] = {
+            quantity: 1,
+            size: 'not availible',
+          };
+          style.skus = noSku;
+        }
+
         const finalObj = {
           style_id: Number(style.id),
           name: style.name,
@@ -56,11 +67,54 @@ module.exports = {
         };
         finalStyle.results.push(finalObj);
       });
+    } else {
+      const noSku = {};
+      noSku[1] = {
+        quantity: 1,
+        size: 'not availible',
+      };
+      const finalObj = {
+        style_id: 1,
+        name: 'no styles for product',
+        original_price: '0.00',
+        sale_price: null,
+        default: true,
+        // eslint-disable-next-line object-shorthand
+        photos: [
+          {
+            url: 'https://i.ibb.co/1svJRPM/photo-coming-soon.jpg',
+            thumbnail_url: 'https://i.ibb.co/hX7124c/photo-coming-soon.jpg',
+          },
+        ],
+        skus: noSku,
+      };
+      finalStyle.results.push(finalObj);
     }
 
     return finalStyle;
   },
-  createFinalProduct: () => {
-
+  createFinalProduct: (productObj, styleObj) => {
+    const feature = null;
+    const finalFeatures = productObj.features.filter((f) => {
+      if (f.value === 'null') {
+        // eslint-disable-next-line no-param-reassign
+        f.value = feature;
+      }
+      return f;
+    });
+    const finalProduct = {
+      id: Number(productObj.id),
+      name: productObj.name,
+      slogan: productObj.slogan,
+      description: productObj.description,
+      category: productObj.category,
+      default_price: `${productObj.default_price.toString()}.00`,
+      styles: styleObj,
+      features: finalFeatures,
+      created_at: productObj.created_at,
+      updated_at: productObj.updated_at,
+    };
+    return finalProduct;
   },
+
 };

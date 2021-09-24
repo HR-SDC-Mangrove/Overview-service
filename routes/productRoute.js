@@ -3,19 +3,17 @@ const helper = require('./helper');
 
 module.exports = {
   products: (req, res) => {
-    // const inputId = req.url.split('=')[1];
-    // // console.log(req)
-
-    // db.models.Product.find({ id: inputId })
-    //   .then((product) => {
-    //     // console.log(product)
-    //     res.send(product[0])
-    //     // console.log(result[0].styles)
-    //     // res.send(result[0]);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     res.send(400);
-    //   });
+    const inputId = req.url.split('=')[1];
+    db.models.Product.find({ id: inputId })
+      .then((product) => {
+        const { styles } = product[0];
+        const finalStyles = helper.createFinalStyles(styles, inputId);
+        const finalProduct = helper.createFinalProduct(product[0], finalStyles);
+        res.send(finalProduct);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.send(400);
+      });
   },
 };
