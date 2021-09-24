@@ -814,24 +814,24 @@ xdescribe('helper methods', () => {
               const finalStyles = helper.createFinalStyles(styles, inputId);
 
               expect(finalStyles.results[0].style_id).to.equal(1958098);
-              expect(finalStyles.results[0].photos[0].url).to.equal(null);
-              expect(finalStyles.results[0].photos[0].thumbnail_url).to.equal(null);
+              expect(finalStyles.results[0].photos[0].url).to.equal('https://i.ibb.co/1svJRPM/photo-coming-soon.jpg');
+              expect(finalStyles.results[0].photos[0].thumbnail_url).to.equal('https://i.ibb.co/hX7124c/photo-coming-soon.jpg');
 
               expect(finalStyles.results[1].style_id).to.equal(1958099);
-              expect(finalStyles.results[1].photos[0].url).to.equal(null);
-              expect(finalStyles.results[1].photos[0].thumbnail_url).to.equal(null);
+              expect(finalStyles.results[1].photos[0].url).to.equal('https://i.ibb.co/1svJRPM/photo-coming-soon.jpg');
+              expect(finalStyles.results[1].photos[0].thumbnail_url).to.equal('https://i.ibb.co/hX7124c/photo-coming-soon.jpg');
 
               expect(finalStyles.results[2].style_id).to.equal(1958100);
-              expect(finalStyles.results[2].photos[0].url).to.equal(null);
-              expect(finalStyles.results[2].photos[0].thumbnail_url).to.equal(null);
+              expect(finalStyles.results[2].photos[0].url).to.equal('https://i.ibb.co/1svJRPM/photo-coming-soon.jpg');
+              expect(finalStyles.results[2].photos[0].thumbnail_url).to.equal('https://i.ibb.co/hX7124c/photo-coming-soon.jpg');
 
               expect(finalStyles.results[3].style_id).to.equal(1958101);
-              expect(finalStyles.results[3].photos[0].url).to.equal(null);
-              expect(finalStyles.results[3].photos[0].thumbnail_url).to.equal(null);
+              expect(finalStyles.results[3].photos[0].url).to.equal('https://i.ibb.co/1svJRPM/photo-coming-soon.jpg');
+              expect(finalStyles.results[3].photos[0].thumbnail_url).to.equal('https://i.ibb.co/hX7124c/photo-coming-soon.jpg');
 
               expect(finalStyles.results[4].style_id).to.equal(1958102);
-              expect(finalStyles.results[4].photos[0].url).to.equal(null);
-              expect(finalStyles.results[4].photos[0].thumbnail_url).to.equal(null);
+              expect(finalStyles.results[4].photos[0].url).to.equal('https://i.ibb.co/1svJRPM/photo-coming-soon.jpg');
+              expect(finalStyles.results[4].photos[0].thumbnail_url).to.equal('https://i.ibb.co/hX7124c/photo-coming-soon.jpg');
             });
           });
           describe('sku data', () => {
@@ -1244,7 +1244,7 @@ xdescribe('helper methods', () => {
               const product = await db.models.Product.find({ id: inputId });
               const { styles } = product[0];
               const finalStyles = helper.createFinalStyles(styles, inputId);
-              expect(finalStyles.results.length).to.equal(0);
+              expect(Object.values(finalStyles.results).length).to.equal(1);
               expect(Number(finalStyles.product_id)).to.equal(inputId);
             });
             it('should return an empty results array, when the input styles array is empty - for product id 22', async () => {
@@ -1252,7 +1252,7 @@ xdescribe('helper methods', () => {
               const product = await db.models.Product.find({ id: inputId });
               const { styles } = product[0];
               const finalStyles = helper.createFinalStyles(styles, inputId);
-              expect(finalStyles.results.length).to.equal(0);
+              expect(Object.values(finalStyles.results).length).to.equal(1);
               expect(Number(finalStyles.product_id)).to.equal(inputId);
             });
             it('should return an empty results array, when the input styles array is empty - for product id 33', async () => {
@@ -1260,7 +1260,7 @@ xdescribe('helper methods', () => {
               const product = await db.models.Product.find({ id: inputId });
               const { styles } = product[0];
               const finalStyles = helper.createFinalStyles(styles, inputId);
-              expect(finalStyles.results.length).to.equal(0);
+              expect(Object.values(finalStyles.results).length).to.equal(1);
               expect(Number(finalStyles.product_id)).to.equal(inputId);
             });
             it('should return an empty results array, when the input styles array is empty - for product id 58', async () => {
@@ -1268,7 +1268,8 @@ xdescribe('helper methods', () => {
               const product = await db.models.Product.find({ id: inputId });
               const { styles } = product[0];
               const finalStyles = helper.createFinalStyles(styles, inputId);
-              expect(finalStyles.results.length).to.equal(0);
+
+              expect(Object.values(finalStyles.results).length).to.equal(1);
               expect(Number(finalStyles.product_id)).to.equal(inputId);
             });
           });

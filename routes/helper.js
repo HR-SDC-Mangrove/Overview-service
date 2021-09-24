@@ -39,10 +39,19 @@ module.exports = {
         if (!photos.length) {
           photos = [
             {
-              url: null,
-              thumbnail_url: null,
+              url: 'https://i.ibb.co/1svJRPM/photo-coming-soon.jpg',
+              thumbnail_url: 'https://i.ibb.co/hX7124c/photo-coming-soon.jpg',
             },
           ];
+        }
+        if(!Object.keys(style.skus).length) {
+          const noSku = {};
+          const tempId = 'not availible';
+          noSku.tempId = {
+            quantity: 0,
+            size: 'not availible',
+          };
+          style.skus = noSku;
         }
         const finalObj = {
           style_id: Number(style.id),
@@ -56,6 +65,29 @@ module.exports = {
         };
         finalStyle.results.push(finalObj);
       });
+    } else {
+      const noSku = {};
+      const tempId = 'not availible';
+      noSku.tempId = {
+        quantity: 0,
+        size: 'not availible',
+      }
+      const finalObj = {
+        style_id: 1,
+        name: 'no styles for product',
+        original_price: '0.00',
+        sale_price: null,
+        default: true,
+        // eslint-disable-next-line object-shorthand
+        photos: [
+          {
+            url: 'https://i.ibb.co/1svJRPM/photo-coming-soon.jpg',
+            thumbnail_url: 'https://i.ibb.co/hX7124c/photo-coming-soon.jpg',
+          },
+        ],
+        skus: noSku,
+      };
+      finalStyle.results.push(finalObj)
     }
 
     return finalStyle;
