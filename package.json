@@ -4,6 +4,7 @@
   "description": "",
   "main": "config.js",
   "scripts": {
+    "test:k6": "k6 run k6_tests/rps100k.js; k6 run k6_tests/rps200k.js; k6 run k6_tests/rps300k.js; k6 run k6_tests/rps400k.js; k6 run k6_tests/rps500k.js; k6 run k6_tests/rps600k.js; k6 run k6_tests/rps700k.js; k6 run k6_tests/rps800k.js; k6 run k6_tests/rps900k.js;",
     "test": "mocha tests --timeoout 0 --exit",
     "test:coverage": "nyc mocha --timeoout 0 tests --exit",
     "start:dev": "nodemon service/index.js"
