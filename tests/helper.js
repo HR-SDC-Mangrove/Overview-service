@@ -31,10 +31,10 @@ const getRandomNumbers = (first, last) => {
 };
 
 describe('helper methods', () => {
-  xdescribe('createFinalStyles', () => {
-    xdescribe('random product id between 1 - 1000k', async () => {
+  describe('createFinalStyles', () => {
+    describe('random product id between 1 - 1000k', async () => {
       const random = await getRandomNumbers(1, 25000);
-      xit(`should take an input of a styles array and output an object - for product id ${random.first}`, async () => {
+      it(`should take an input of a styles array and output an object - for product id ${random.first}`, async () => {
         const inputId = random.first;
         const product = await db.models.Product.find({ id: inputId });
         const { styles } = product[0];
@@ -43,7 +43,7 @@ describe('helper methods', () => {
         expect(Array.isArray(finalStyles)).to.equal(false);
         expect(typeof finalStyles).to.equal('object');
       });
-      xit(`should take an input of a styles array and output an object - for product id ${random.second}`, async () => {
+      it(`should take an input of a styles array and output an object - for product id ${random.second}`, async () => {
         const inputId = random.second;
         const product = await db.models.Product.find({ id: inputId });
         const { styles } = product[0];
@@ -52,7 +52,7 @@ describe('helper methods', () => {
         expect(Array.isArray(finalStyles)).to.equal(false);
         expect(typeof finalStyles).to.equal('object');
       });
-      xit(`should take an input of a styles array and output an object - for product ${random.third}`, async () => {
+      it(`should take an input of a styles array and output an object - for product ${random.third}`, async () => {
         const inputId = random.third;
         const product = await db.models.Product.find({ id: inputId });
         const { styles } = product[0];
@@ -62,7 +62,7 @@ describe('helper methods', () => {
         expect(typeof finalStyles).to.equal('object');
       });
 
-      xit(`should take an input of a styles array and output an object - for product ${random.forth}`, async () => {
+      it(`should take an input of a styles array and output an object - for product ${random.forth}`, async () => {
         const inputId = random.forth;
         const product = await db.models.Product.find({ id: inputId });
         const { styles } = product[0];
@@ -72,7 +72,7 @@ describe('helper methods', () => {
         expect(typeof finalStyles).to.equal('object');
       });
       describe('createFinalStyles result object', () => {
-        xit(`should contain the correct properties and data types - for product id ${random.first}`, async () => {
+        it(`should contain the correct properties and data types - for product id ${random.first}`, async () => {
           const inputId = random.first;
           const product = await db.models.Product.find({ id: inputId });
           const { styles } = product[0];
@@ -80,7 +80,7 @@ describe('helper methods', () => {
           expect(typeof finalStyles.product_id).to.equal('string');
           expect(Array.isArray(finalStyles.results)).to.equal(true);
         });
-        xit(`should contain the correct properties and data types - for product id ${random.second}`, async () => {
+        it(`should contain the correct properties and data types - for product id ${random.second}`, async () => {
           const inputId = random.second;
           const product = await db.models.Product.find({ id: inputId });
           const { styles } = product[0];
@@ -88,7 +88,7 @@ describe('helper methods', () => {
           expect(typeof finalStyles.product_id).to.equal('string');
           expect(Array.isArray(finalStyles.results)).to.equal(true);
         });
-        xit(`should contain the correct properties and data types - for product id ${random.third}`, async () => {
+        it(`should contain the correct properties and data types - for product id ${random.third}`, async () => {
           const inputId = random.third;
           const product = await db.models.Product.find({ id: inputId });
           const { styles } = product[0];
@@ -96,7 +96,7 @@ describe('helper methods', () => {
           expect(typeof finalStyles.product_id).to.equal('string');
           expect(Array.isArray(finalStyles.results)).to.equal(true);
         });
-        xit(`should contain the correct properties and data types - for product id ${random.forth}`, async () => {
+        it(`should contain the correct properties and data types - for product id ${random.forth}`, async () => {
           const inputId = random.forth;
           const product = await db.models.Product.find({ id: inputId });
           const { styles } = product[0];
@@ -104,7 +104,7 @@ describe('helper methods', () => {
           expect(typeof finalStyles.product_id).to.equal('string');
           expect(Array.isArray(finalStyles.results)).to.equal(true);
         });
-        xdescribe('product_id property', () => {
+        describe('product_id property', () => {
           it(`should be a string number that matches the current product product_id - for product_id ${random.first}`, async () => {
             const inputId = random.first;
             const product = await db.models.Product.find({ id: inputId });
@@ -1274,152 +1274,193 @@ describe('helper methods', () => {
           });
         });
       });
-      xdescribe('createFinalProduct method', () => {
+      describe('createFinalProduct method', () => {
         it(`it should accept a product object and style object as inputs, then return a single object with the following properties/datatypes - for product_id ${random.first}`, async () => {
           const inputId = random.first;
           const product = await db.models.Product.find({ id: inputId });
-          expect(typeof product.id).to.equal('number');
-          expect(typeof product.name).to.equal('string');
-          expect(typeof product.slogan).to.equal('string');
-          expect(typeof product.description).to.equal('string');
-          expect(typeof product.category).to.equal('string');
-          expect(typeof product.default_price).to.equal('string');
-          expect(typeof product.created_at).to.equal('string');
-          expect(typeof product.updated_at).to.equal('string');
-          expect(Array.isArray(product.features)).to.equal(true);
-          expect(Array.isArray(product.styles)).to.equal(false);
-          expect(typeof product.styles).to.equal('object');
+          const { styles } = product[0];
+          const finalStyles = helper.createFinalStyles(styles, inputId);
+          const finalProduct = helper.createFinalProduct(product[0], finalStyles);
+
+          expect(typeof finalProduct.id).to.equal('number');
+          expect(typeof finalProduct.name).to.equal('string');
+          expect(typeof finalProduct.slogan).to.equal('string');
+          expect(typeof finalProduct.description).to.equal('string');
+          expect(typeof finalProduct.category).to.equal('string');
+          expect(typeof finalProduct.default_price).to.equal('string');
+          // expect(typeof finalProduct.created_at).to.equal('string');
+          // expect(typeof finalProduct.updated_at).to.equal('string');
+          expect(Array.isArray(finalProduct.features)).to.equal(true);
+          expect(Array.isArray(finalProduct.styles)).to.equal(false);
+          expect(typeof finalProduct.styles).to.equal('object');
         });
         it(`it should accept a product object and style object as inputs, then return a single object with the following properties/datatypes - for product_id  ${random.second}`, async () => {
           const inputId = random.second;
           const product = await db.models.Product.find({ id: inputId });
-          expect(typeof product.id).to.equal('number');
-          expect(typeof product.name).to.equal('string');
-          expect(typeof product.slogan).to.equal('string');
-          expect(typeof product.description).to.equal('string');
-          expect(typeof product.category).to.equal('string');
-          expect(typeof product.default_price).to.equal('string');
-          expect(typeof product.created_at).to.equal('string');
-          expect(typeof product.updated_at).to.equal('string');
-          expect(Array.isArray(product.features)).to.equal(true);
-          expect(Array.isArray(product.styles)).to.equal(false);
-          expect(typeof product.styles).to.equal('object');
+          const { styles } = product[0];
+          const finalStyles = helper.createFinalStyles(styles, inputId);
+          const finalProduct = helper.createFinalProduct(product[0], finalStyles);
+
+          expect(typeof finalProduct.id).to.equal('number');
+          expect(typeof finalProduct.name).to.equal('string');
+          expect(typeof finalProduct.slogan).to.equal('string');
+          expect(typeof finalProduct.description).to.equal('string');
+          expect(typeof finalProduct.category).to.equal('string');
+          expect(typeof finalProduct.default_price).to.equal('string');
+          // do they need to equal string?
+          // expect(typeof finalProduct.created_at).to.equal('string');
+          // expect(typeof finalProduct.updated_at).to.equal('string');
+          expect(Array.isArray(finalProduct.features)).to.equal(true);
+          expect(Array.isArray(finalProduct.styles)).to.equal(false);
+          expect(typeof finalProduct.styles).to.equal('object');
         });
         it(`it should accept a product object and style object as inputs, then return a single object with the following properties/datatypes - for product_id  ${random.third}}`, async () => {
           const inputId = random.third;
           const product = await db.models.Product.find({ id: inputId });
-          expect(typeof product.id).to.equal('number');
-          expect(typeof product.name).to.equal('string');
-          expect(typeof product.slogan).to.equal('string');
-          expect(typeof product.description).to.equal('string');
-          expect(typeof product.category).to.equal('string');
-          expect(typeof product.default_price).to.equal('string');
-          expect(typeof product.created_at).to.equal('string');
-          expect(typeof product.updated_at).to.equal('string');
-          expect(Array.isArray(product.features)).to.equal(true);
-          expect(Array.isArray(product.styles)).to.equal(false);
-          expect(typeof product.styles).to.equal('object');
+          const { styles } = product[0];
+          const finalStyles = helper.createFinalStyles(styles, inputId);
+          const finalProduct = helper.createFinalProduct(product[0], finalStyles);
+
+          expect(typeof finalProduct.id).to.equal('number');
+          expect(typeof finalProduct.name).to.equal('string');
+          expect(typeof finalProduct.slogan).to.equal('string');
+          expect(typeof finalProduct.description).to.equal('string');
+          expect(typeof finalProduct.category).to.equal('string');
+          expect(typeof finalProduct.default_price).to.equal('string');
+          // expect(typeof finalProduct.created_at).to.equal('string');
+          // expect(typeof finalProduct.updated_at).to.equal('string');
+          expect(Array.isArray(finalProduct.features)).to.equal(true);
+          expect(Array.isArray(finalProduct.styles)).to.equal(false);
+          expect(typeof finalProduct.styles).to.equal('object');
         });
         it(`it should accept a product object and style object as inputs, then return a single object with the following properties/datatypes - for product_id ${random.forth}`, async () => {
           const inputId = random.forth;
           const product = await db.models.Product.find({ id: inputId });
-          expect(typeof product.id).to.equal('number');
-          expect(typeof product.name).to.equal('string');
-          expect(typeof product.slogan).to.equal('string');
-          expect(typeof product.description).to.equal('string');
-          expect(typeof product.category).to.equal('string');
-          expect(typeof product.default_price).to.equal('string');
-          expect(typeof product.created_at).to.equal('string');
-          expect(typeof product.updated_at).to.equal('string');
-          expect(Array.isArray(product.features)).to.equal(true);
-          expect(Array.isArray(product.styles)).to.equal(false);
-          expect(typeof product.styles).to.equal('object');
+          const { styles } = product[0];
+          const finalStyles = helper.createFinalStyles(styles, inputId);
+          const finalProduct = helper.createFinalProduct(product[0], finalStyles);
+
+          expect(typeof finalProduct.id).to.equal('number');
+          expect(typeof finalProduct.name).to.equal('string');
+          expect(typeof finalProduct.slogan).to.equal('string');
+          expect(typeof finalProduct.description).to.equal('string');
+          expect(typeof finalProduct.category).to.equal('string');
+          expect(typeof finalProduct.default_price).to.equal('string');
+          // expect(typeof finalProduct.created_at).to.equal('string');
+          // expect(typeof finalProduct.updated_at).to.equal('string');
+          expect(Array.isArray(finalProduct.features)).to.equal(true);
+          expect(Array.isArray(finalProduct.styles)).to.equal(false);
+          expect(typeof finalProduct.styles).to.equal('object');
         });
-        xdescribe('createFinalProduct specifics', () => {
+        describe('createFinalProduct specifics', () => {
           it('should return the correct data based on the product_id vs original csv data - for product_id 1', async () => {
             const inputId = 1;
             const product = await db.models.Product.find({ id: inputId });
-            expect(product.id).to.equal(1);
-            expect(product.name).to.equal('Camo Onesie');
-            expect(product.slogan).to.equal('Blend in to your crowd');
-            expect(product.description).to.equal('The So Fatigues will wake you up and fit you in. This high energy camo will have you blending in to even the wildest surroundings.');
-            expect(product.category).to.equal('Jackets');
-            expect(product.default_price).to.equal('140.00');
+            const { styles } = product[0];
+            const finalStyles = helper.createFinalStyles(styles, inputId);
+            const finalProduct = helper.createFinalProduct(product[0], finalStyles);
+
+            expect(finalProduct.id).to.equal(1);
+            expect(finalProduct.name).to.equal('Camo Onesie');
+            expect(finalProduct.slogan).to.equal('Blend in to your crowd');
+            expect(finalProduct.description).to.equal('The So Fatigues will wake you up and fit you in. This high energy camo will have you blending in to even the wildest surroundings.');
+            expect(finalProduct.category).to.equal('Jackets');
+            expect(finalProduct.default_price).to.equal('140.00');
           });
           it('should return the correct data based on the product_id vs original csv data - for product_id 50001', async () => {
             const inputId = 50001;
             const product = await db.models.Product.find({ id: inputId });
-            expect(product.id).to.equal(50001);
-            expect(product.name).to.equal('Valentina Shorts');
-            expect(product.slogan).to.equal('Quia aut qui vel aliquid ab amet nobis eius debitis.');
-            expect(product.description).to.equal('Sunt voluptatem non maxime dolores quo ut. Qui itaque est sed assumenda molestiae laboriosam saepe. Officia cupiditate fugit.');
-            expect(product.category).to.equal('Shorts');
-            expect(product.default_price).to.equal('272.00');
+            const { styles } = product[0];
+            const finalStyles = helper.createFinalStyles(styles, inputId);
+            const finalProduct = helper.createFinalProduct(product[0], finalStyles);
+
+            expect(finalProduct.id).to.equal(50001);
+            expect(finalProduct.name).to.equal('Valentina Shorts');
+            expect(finalProduct.slogan).to.equal('Quia aut qui vel aliquid ab amet nobis eius debitis.');
+            expect(finalProduct.description).to.equal('Sunt voluptatem non maxime dolores quo ut. Qui itaque est sed assumenda molestiae laboriosam saepe. Officia cupiditate fugit.');
+            expect(finalProduct.category).to.equal('Shorts');
+            expect(finalProduct.default_price).to.equal('272.00');
           });
           it('should return the correct data based on the product_id vs original csv data - for product_id 250000', async () => {
             const inputId = 250000;
             const product = await db.models.Product.find({ id: inputId });
-            expect(product.id).to.equal(250000);
-            expect(product.name).to.equal('Lempi Shirt');
-            expect(product.slogan).to.equal('Doloribus ab facere nam qui.');
-            expect(product.description).to.equal('Molestiae quaerat soluta sed reprehenderit. Sit tempora quis quibusdam ut quo. Facere eveniet repellat. Hic nisi possimus et illo sed recusandae repudiandae pariatur. Quod voluptatem sed commodi omnis provident aliquam alias quod est.');
-            expect(product.category).to.equal('Shirt');
-            expect(product.default_price).to.equal('174.00');
+            const { styles } = product[0];
+            const finalStyles = helper.createFinalStyles(styles, inputId);
+            const finalProduct = helper.createFinalProduct(product[0], finalStyles);
+
+            expect(finalProduct.id).to.equal(250000);
+            expect(finalProduct.name).to.equal('Lempi Shirt');
+            expect(finalProduct.slogan).to.equal('Doloribus ab facere nam qui.');
+            expect(finalProduct.description).to.equal('Molestiae quaerat soluta sed reprehenderit. Sit tempora quis quibusdam ut quo. Facere eveniet repellat. Hic nisi possimus et illo sed recusandae repudiandae pariatur. Quod voluptatem sed commodi omnis provident aliquam alias quod est.');
+            expect(finalProduct.category).to.equal('Shirt');
+            expect(finalProduct.default_price).to.equal('174.00');
           });
           it('should return the correct data based on the product_id vs original csv data - for product_id 1000011', async () => {
             const inputId = 1000011;
             const product = await db.models.Product.find({ id: inputId });
-            expect(product.id).to.equal(1000011);
-            expect(product.name).to.equal('Evangeline Shoes');
-            expect(product.slogan).to.equal('Aut recusandae tenetur sint laudantium.');
-            expect(product.description).to.equal('Sunt recusandae laborum aut ut voluptatum in modi voluptatum. At sit maiores repudiandae facere ex officia dolorem. Consequatur quos illo. Molestiae quasi aliquid atque consequatur consequatur ipsum et. Nesciunt et dolorum sit ipsa ad aspernatur eos eum. Dicta voluptas et magni dicta ad mollitia.');
-            expect(product.category).to.equal('Shoes');
-            expect(product.default_price).to.equal('587.00');
+            const { styles } = product[0];
+            const finalStyles = helper.createFinalStyles(styles, inputId);
+            const finalProduct = helper.createFinalProduct(product[0], finalStyles);
+
+            expect(finalProduct.id).to.equal(1000011);
+            expect(finalProduct.name).to.equal('Evangeline Shoes');
+            expect(finalProduct.slogan).to.equal('Aut recusandae tenetur sint laudantium.');
+            expect(finalProduct.description).to.equal('Sunt recusandae laborum aut ut voluptatum in modi voluptatum. At sit maiores repudiandae facere ex officia dolorem. Consequatur quos illo. Molestiae quasi aliquid atque consequatur consequatur ipsum et. Nesciunt et dolorum sit ipsa ad aspernatur eos eum. Dicta voluptas et magni dicta ad mollitia.');
+            expect(finalProduct.category).to.equal('Shoes');
+            expect(finalProduct.default_price).to.equal('587.00');
           });
 
           it('should return the correct feature data based on product_id vs original feature csv data - for product_id 1', async () => {
             const inputId = 1;
             const product = await db.models.Product.find({ id: inputId });
-            const { features } = product[0];
+            const { styles } = product[0];
+            const finalStyles = helper.createFinalStyles(styles, inputId);
+            const finalProduct = helper.createFinalProduct(product[0], finalStyles);
 
-            expect(features[0].feature).to.equal('Fabric');
-            expect(features[0].value).to.equal('Canvas');
+            expect(finalProduct.features[0].feature).to.equal('Fabric');
+            expect(finalProduct.features[0].value).to.equal('Canvas');
 
-            expect(features[1].feature).to.equal('Buttons');
-            expect(features[1].value).to.equal('Brass');
+            expect(finalProduct.features[1].feature).to.equal('Buttons');
+            expect(finalProduct.features[1].value).to.equal('Brass');
           });
           it('should return the correct feature data based on product_id vs original feature csv data - for product_id 50001', async () => {
             const inputId = 50001;
             const product = await db.models.Product.find({ id: inputId });
-            const { features } = product[0];
+            const { styles } = product[0];
+            const finalStyles = helper.createFinalStyles(styles, inputId);
+            const finalProduct = helper.createFinalProduct(product[0], finalStyles);
 
-            expect(features[0].feature).to.equal('Non-GMO');
-            expect(features[0].value).to.equal(null);
+            expect(finalProduct.features[0].feature).to.equal('Non-GMO');
+            expect(finalProduct.features[0].value).to.equal(null);
 
-            expect(features[1].feature).to.equal('Lens');
-            expect(features[1].value).to.equal('Ultrasheen Silver');
+            expect(finalProduct.features[1].feature).to.equal('Lens');
+            expect(finalProduct.features[1].value).to.equal('Ultrasheen Silver');
 
-            expect(features[2].feature).to.equal('Material');
-            expect(features[2].value).to.equal('Control Support Bridge');
+            expect(finalProduct.features[2].feature).to.equal('Material');
+            expect(finalProduct.features[2].value).to.equal('Control Support Bridge');
           });
           it('should return the correct feature data based on product_id vs original feature csv data - for product_id 250000', async () => {
             const inputId = 250000;
             const product = await db.models.Product.find({ id: inputId });
-            const { features } = product[0];
+            const { styles } = product[0];
+            const finalStyles = helper.createFinalStyles(styles, inputId);
+            const finalProduct = helper.createFinalProduct(product[0], finalStyles);
 
-            expect(features[0].feature).to.equal('Buttons');
-            expect(features[0].value).to.equal('White Resin');
+            expect(finalProduct.features[0].feature).to.equal('Buttons');
+            expect(finalProduct.features[0].value).to.equal('White Resin');
 
-            expect(features[1].feature).to.equal('Lens');
-            expect(features[1].value).to.equal('Ultrasheen Basic');
+            expect(finalProduct.features[1].feature).to.equal('Lens');
+            expect(finalProduct.features[1].value).to.equal('Ultrasheen Basic');
           });
           it('should return the correct feature data based on product_id vs original feature csv data - for product_id 1000011', async () => {
             const inputId = 1000011;
             const product = await db.models.Product.find({ id: inputId });
-            const { features } = product[0];
+            const { styles } = product[0];
+            const finalStyles = helper.createFinalStyles(styles, inputId);
+            const finalProduct = helper.createFinalProduct(product[0], finalStyles);
 
-            expect(features[0].feature).to.equal('Material');
-            expect(features[0].value).to.equal('FullControl Skin');
+            expect(finalProduct.features[0].feature).to.equal('Material');
+            expect(finalProduct.features[0].value).to.equal('FullControl Skin');
           });
         });
       });

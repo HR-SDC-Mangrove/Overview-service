@@ -60,7 +60,28 @@ module.exports = {
 
     return finalStyle;
   },
-  createFinalProduct: () => {
-
+  createFinalProduct: (productObj, styleObj) => {
+    const feature = null;
+    const finalFeatures = productObj.features.filter((f) => {
+      if (f.value === 'null') {
+        // eslint-disable-next-line no-param-reassign
+        f.value = feature;
+      }
+      return f;
+    });
+    const finalProduct = {
+      id: Number(productObj.id),
+      name: productObj.name,
+      slogan: productObj.slogan,
+      description: productObj.description,
+      category: productObj.category,
+      default_price: `${productObj.default_price.toString()}.00`,
+      styles: styleObj,
+      features: finalFeatures,
+      created_at: productObj.created_at,
+      updated_at: productObj.updated_at,
+    };
+    return finalProduct;
   },
+
 };
