@@ -22,6 +22,7 @@ const getRandomNumbers = (first, last) => {
   numberObj.second = rando2;
   numberObj.third = rando3;
   numberObj.forth = rando4;
+
   const unique = Array.from(new Set(Object.values(numberObj)));
   if (!unique.length === 4) {
     return getRandomNumbers(first, last);
@@ -32,12 +33,12 @@ const getRandomNumbers = (first, last) => {
 describe('helper methods', () => {
   xdescribe('createFinalStyles', () => {
     xdescribe('random product id between 1 - 1000k', async () => {
-      const random = await getRandomNumbers(1, 1000011);
+      const random = await getRandomNumbers(1, 25000);
       xit(`should take an input of a styles array and output an object - for product id ${random.first}`, async () => {
         const inputId = random.first;
         const product = await db.models.Product.find({ id: inputId });
         const { styles } = product[0];
-        const finalStyles = helper.createFinalStyles(styles);
+        const finalStyles = helper.createFinalStyles(styles, inputId);
         expect(Array.isArray(styles)).to.equal(true);
         expect(Array.isArray(finalStyles)).to.equal(false);
         expect(typeof finalStyles).to.equal('object');
@@ -46,7 +47,7 @@ describe('helper methods', () => {
         const inputId = random.second;
         const product = await db.models.Product.find({ id: inputId });
         const { styles } = product[0];
-        const finalStyles = helper.createFinalStyles(styles);
+        const finalStyles = helper.createFinalStyles(styles, inputId);
         expect(Array.isArray(styles)).to.equal(true);
         expect(Array.isArray(finalStyles)).to.equal(false);
         expect(typeof finalStyles).to.equal('object');
@@ -55,7 +56,7 @@ describe('helper methods', () => {
         const inputId = random.third;
         const product = await db.models.Product.find({ id: inputId });
         const { styles } = product[0];
-        const finalStyles = helper.createFinalStyles(styles);
+        const finalStyles = helper.createFinalStyles(styles, inputId);
         expect(Array.isArray(styles)).to.equal(true);
         expect(Array.isArray(finalStyles)).to.equal(false);
         expect(typeof finalStyles).to.equal('object');
@@ -65,72 +66,72 @@ describe('helper methods', () => {
         const inputId = random.forth;
         const product = await db.models.Product.find({ id: inputId });
         const { styles } = product[0];
-        const finalStyles = helper.createFinalStyles(styles);
+        const finalStyles = helper.createFinalStyles(styles, inputId);
         expect(Array.isArray(styles)).to.equal(true);
         expect(Array.isArray(finalStyles)).to.equal(false);
         expect(typeof finalStyles).to.equal('object');
       });
-      xdescribe('createFinalStyles result object', () => {
-        it(`should contain the correct properties and data types - for product id ${random.first}`, async () => {
+      describe('createFinalStyles result object', () => {
+        xit(`should contain the correct properties and data types - for product id ${random.first}`, async () => {
           const inputId = random.first;
           const product = await db.models.Product.find({ id: inputId });
           const { styles } = product[0];
-          const finalStyles = helper.createFinalStyles(styles);
-          expect(typeof finalStyles.product_id).to.equal('number');
+          const finalStyles = helper.createFinalStyles(styles, inputId);
+          expect(typeof finalStyles.product_id).to.equal('string');
           expect(Array.isArray(finalStyles.results)).to.equal(true);
         });
-        it(`should contain the correct properties and data types - for product id ${random.second}`, async () => {
+        xit(`should contain the correct properties and data types - for product id ${random.second}`, async () => {
           const inputId = random.second;
           const product = await db.models.Product.find({ id: inputId });
           const { styles } = product[0];
-          const finalStyles = helper.createFinalStyles(styles);
-          expect(typeof finalStyles.product_id).to.equal('number');
+          const finalStyles = helper.createFinalStyles(styles, inputId);
+          expect(typeof finalStyles.product_id).to.equal('string');
           expect(Array.isArray(finalStyles.results)).to.equal(true);
         });
-        it(`should contain the correct properties and data types - for product id ${random.third}`, async () => {
+        xit(`should contain the correct properties and data types - for product id ${random.third}`, async () => {
           const inputId = random.third;
           const product = await db.models.Product.find({ id: inputId });
           const { styles } = product[0];
-          const finalStyles = helper.createFinalStyles(styles);
-          expect(typeof finalStyles.product_id).to.equal('number');
+          const finalStyles = helper.createFinalStyles(styles, inputId);
+          expect(typeof finalStyles.product_id).to.equal('string');
           expect(Array.isArray(finalStyles.results)).to.equal(true);
         });
-        it(`should contain the correct properties and data types - for product id ${random.forth}`, async () => {
+        xit(`should contain the correct properties and data types - for product id ${random.forth}`, async () => {
           const inputId = random.forth;
           const product = await db.models.Product.find({ id: inputId });
           const { styles } = product[0];
-          const finalStyles = helper.createFinalStyles(styles);
-          expect(typeof finalStyles.product_id).to.equal('number');
+          const finalStyles = helper.createFinalStyles(styles, inputId);
+          expect(typeof finalStyles.product_id).to.equal('string');
           expect(Array.isArray(finalStyles.results)).to.equal(true);
         });
-        describe('product_id property', () => {
-          it(`should be a number that matches the current product product_id for product_id ${random.first}`, async () => {
+        xdescribe('product_id property', () => {
+          it(`should be a string number that matches the current product product_id - for product_id ${random.first}`, async () => {
             const inputId = random.first;
             const product = await db.models.Product.find({ id: inputId });
             const { styles } = product[0];
-            const finalStyles = helper.createFinalStyles(styles);
-            expect(finalStyles.product_id).to.equal(inputId);
+            const finalStyles = helper.createFinalStyles(styles, inputId);
+            expect(Number(finalStyles.product_id)).to.equal(inputId);
           });
-          it(`should be a number that matches the current product product_id for product_id ${random.second}`, async () => {
+          it(`should be a string number that matches the current product product_id - for product_id ${random.second}`, async () => {
             const inputId = random.second;
             const product = await db.models.Product.find({ id: inputId });
             const { styles } = product[0];
-            const finalStyles = helper.createFinalStyles(styles);
-            expect(finalStyles.product_id).to.equal(inputId);
+            const finalStyles = helper.createFinalStyles(styles, inputId);
+            expect(Number(finalStyles.product_id)).to.equal(inputId);
           });
-          it(`should be a number that matches the current product product_id for product_id ${random.third}`, async () => {
+          it(`should be a string number that matches the current product product_id - for product_id ${random.third}`, async () => {
             const inputId = random.third;
             const product = await db.models.Product.find({ id: inputId });
             const { styles } = product[0];
-            const finalStyles = helper.createFinalStyles(styles);
-            expect(finalStyles.product_id).to.equal(inputId);
+            const finalStyles = helper.createFinalStyles(styles, inputId);
+            expect(Number(finalStyles.product_id)).to.equal(inputId);
           });
-          it(`should be a number that matches the current product product_id for product_id ${random.forth}`, async () => {
+          it(`should be a string number that matches the current product product_id - for product_id  ${random.forth}`, async () => {
             const inputId = random.forth;
             const product = await db.models.Product.find({ id: inputId });
             const { styles } = product[0];
-            const finalStyles = helper.createFinalStyles(styles);
-            expect(finalStyles.product_id).to.equal(inputId);
+            const finalStyles = helper.createFinalStyles(styles, inputId);
+            expect(Number(finalStyles.product_id)).to.equal(inputId);
           });
         });
         describe('results property', () => {
@@ -138,10 +139,10 @@ describe('helper methods', () => {
             const inputId = random.first;
             const product = await db.models.Product.find({ id: inputId });
             const { styles } = product[0];
-            const finalStyles = helper.createFinalStyles(styles);
+            const finalStyles = helper.createFinalStyles(styles, inputId);
             if (finalStyles.results.length) {
               finalStyles.results.forEach((style) => {
-                expect(typeof style.id).to.equal('number');
+                expect(typeof style.style_id).to.equal('number');
                 expect(typeof style.name).to.equal('string');
                 expect(typeof style.original_price).to.equal('string');
                 if (style.sale_price !== null) {
@@ -151,7 +152,7 @@ describe('helper methods', () => {
                 }
                 expect(typeof style.default).to.equal('boolean');
                 expect(Array.isArray(style.photos)).to.equal(true);
-                expect(!Array.isArray(style.skus)).to.equal(false);
+                expect(Array.isArray(style.skus)).to.equal(false);
                 expect(typeof style.skus).to.equal('object');
               });
             }
@@ -160,10 +161,10 @@ describe('helper methods', () => {
             const inputId = random.second;
             const product = await db.models.Product.find({ id: inputId });
             const { styles } = product[0];
-            const finalStyles = helper.createFinalStyles(styles);
+            const finalStyles = helper.createFinalStyles(styles, inputId);
             if (finalStyles.results.length) {
               finalStyles.results.forEach((style) => {
-                expect(typeof style.id).to.equal('number');
+                expect(typeof style.style_id).to.equal('number');
                 expect(typeof style.name).to.equal('string');
                 expect(typeof style.original_price).to.equal('string');
                 if (style.sale_price !== null) {
@@ -173,7 +174,7 @@ describe('helper methods', () => {
                 }
                 expect(typeof style.default).to.equal('boolean');
                 expect(Array.isArray(style.photos)).to.equal(true);
-                expect(!Array.isArray(style.skus)).to.equal(false);
+                expect(Array.isArray(style.skus)).to.equal(false);
                 expect(typeof style.skus).to.equal('object');
               });
             }
@@ -182,10 +183,10 @@ describe('helper methods', () => {
             const inputId = random.third;
             const product = await db.models.Product.find({ id: inputId });
             const { styles } = product[0];
-            const finalStyles = helper.createFinalStyles(styles);
+            const finalStyles = helper.createFinalStyles(styles, inputId);
             if (finalStyles.results.length) {
               finalStyles.results.forEach((style) => {
-                expect(typeof style.id).to.equal('number');
+                expect(typeof style.style_id).to.equal('number');
                 expect(typeof style.name).to.equal('string');
                 expect(typeof style.original_price).to.equal('string');
                 if (style.sale_price !== null) {
@@ -195,7 +196,7 @@ describe('helper methods', () => {
                 }
                 expect(typeof style.default).to.equal('boolean');
                 expect(Array.isArray(style.photos)).to.equal(true);
-                expect(!Array.isArray(style.skus)).to.equal(false);
+                expect(Array.isArray(style.skus)).to.equal(false);
                 expect(typeof style.skus).to.equal('object');
               });
             }
@@ -204,10 +205,10 @@ describe('helper methods', () => {
             const inputId = random.forth;
             const product = await db.models.Product.find({ id: inputId });
             const { styles } = product[0];
-            const finalStyles = helper.createFinalStyles(styles);
+            const finalStyles = helper.createFinalStyles(styles, inputId);
             if (finalStyles.results.length) {
               finalStyles.results.forEach((style) => {
-                expect(typeof style.id).to.equal('number');
+                expect(typeof style.style_id).to.equal('number');
                 expect(typeof style.name).to.equal('string');
                 expect(typeof style.original_price).to.equal('string');
                 if (style.sale_price !== null) {
@@ -217,7 +218,7 @@ describe('helper methods', () => {
                 }
                 expect(typeof style.default).to.equal('boolean');
                 expect(Array.isArray(style.photos)).to.equal(true);
-                expect(!Array.isArray(style.skus)).to.equal(false);
+                expect(Array.isArray(style.skus)).to.equal(false);
                 expect(typeof style.skus).to.equal('object');
               });
             }
@@ -227,10 +228,10 @@ describe('helper methods', () => {
             const inputId = random.first;
             const product = await db.models.Product.find({ id: inputId });
             const { styles } = product[0];
-            const finalStyles = helper.createFinalStyles(styles);
+            const finalStyles = helper.createFinalStyles(styles, inputId);
             if (finalStyles.results.length) {
               finalStyles.results.forEach((style) => {
-                expect(typeof style.id).to.equal('number');
+                expect(typeof style.style_id).to.equal('number');
                 expect(typeof style.name).to.equal('string');
                 expect(typeof style.original_price).to.equal('string');
                 if (style.sale_price !== null) {
@@ -240,7 +241,7 @@ describe('helper methods', () => {
                 }
                 expect(typeof style.default).to.equal('boolean');
                 expect(Array.isArray(style.photos)).to.equal(true);
-                expect(!Array.isArray(style.skus)).to.equal(false);
+                expect(Array.isArray(style.skus)).to.equal(false);
                 expect(typeof style.skus).to.equal('object');
               });
             }
@@ -249,10 +250,10 @@ describe('helper methods', () => {
             const inputId = random.second;
             const product = await db.models.Product.find({ id: inputId });
             const { styles } = product[0];
-            const finalStyles = helper.createFinalStyles(styles);
+            const finalStyles = helper.createFinalStyles(styles, inputId);
             if (finalStyles.results.length) {
               finalStyles.results.forEach((style) => {
-                expect(typeof style.id).to.equal('number');
+                expect(typeof style.style_id).to.equal('number');
                 expect(typeof style.name).to.equal('string');
                 expect(typeof style.original_price).to.equal('string');
                 if (style.sale_price !== null) {
@@ -262,7 +263,7 @@ describe('helper methods', () => {
                 }
                 expect(typeof style.default).to.equal('boolean');
                 expect(Array.isArray(style.photos)).to.equal(true);
-                expect(!Array.isArray(style.skus)).to.equal(false);
+                expect(Array.isArray(style.skus)).to.equal(false);
                 expect(typeof style.skus).to.equal('object');
               });
             }
@@ -271,10 +272,10 @@ describe('helper methods', () => {
             const inputId = random.third;
             const product = await db.models.Product.find({ id: inputId });
             const { styles } = product[0];
-            const finalStyles = helper.createFinalStyles(styles);
+            const finalStyles = helper.createFinalStyles(styles, inputId);
             if (finalStyles.results.length) {
               finalStyles.results.forEach((style) => {
-                expect(typeof style.id).to.equal('number');
+                expect(typeof style.style_id).to.equal('number');
                 expect(typeof style.name).to.equal('string');
                 expect(typeof style.original_price).to.equal('string');
                 if (style.sale_price !== null) {
@@ -284,7 +285,7 @@ describe('helper methods', () => {
                 }
                 expect(typeof style.default).to.equal('boolean');
                 expect(Array.isArray(style.photos)).to.equal(true);
-                expect(!Array.isArray(style.skus)).to.equal(false);
+                expect(Array.isArray(style.skus)).to.equal(false);
                 expect(typeof style.skus).to.equal('object');
               });
             }
@@ -293,10 +294,10 @@ describe('helper methods', () => {
             const inputId = random.forth;
             const product = await db.models.Product.find({ id: inputId });
             const { styles } = product[0];
-            const finalStyles = helper.createFinalStyles(styles);
+            const finalStyles = helper.createFinalStyles(styles, inputId);
             if (finalStyles.results.length) {
               finalStyles.results.forEach((style) => {
-                expect(typeof style.id).to.equal('number');
+                expect(typeof style.style_id).to.equal('number');
                 expect(typeof style.name).to.equal('string');
                 expect(typeof style.original_price).to.equal('string');
                 if (style.sale_price !== null) {
@@ -306,7 +307,7 @@ describe('helper methods', () => {
                 }
                 expect(typeof style.default).to.equal('boolean');
                 expect(Array.isArray(style.photos)).to.equal(true);
-                expect(!Array.isArray(style.skus)).to.equal(false);
+                expect(Array.isArray(style.skus)).to.equal(false);
                 expect(typeof style.skus).to.equal('object');
               });
             }
@@ -317,7 +318,7 @@ describe('helper methods', () => {
               const inputId = random.first;
               const product = await db.models.Product.find({ id: inputId });
               const { styles } = product[0];
-              const finalStyles = helper.createFinalStyles(styles);
+              const finalStyles = helper.createFinalStyles(styles, inputId);
               finalStyles.results.forEach((style) => {
                 style.photos.forEach((photo) => {
                   expect(typeof photo.url === 'string' || photo.thumbnail_url === null).to.equal(true);
@@ -328,7 +329,7 @@ describe('helper methods', () => {
               const inputId = random.second;
               const product = await db.models.Product.find({ id: inputId });
               const { styles } = product[0];
-              const finalStyles = helper.createFinalStyles(styles);
+              const finalStyles = helper.createFinalStyles(styles, inputId);
               finalStyles.results.forEach((style) => {
                 style.photos.forEach((photo) => {
                   expect(typeof photo.url === 'string' || photo.thumbnail_url === null).to.equal(true);
@@ -339,7 +340,7 @@ describe('helper methods', () => {
               const inputId = random.third;
               const product = await db.models.Product.find({ id: inputId });
               const { styles } = product[0];
-              const finalStyles = helper.createFinalStyles(styles);
+              const finalStyles = helper.createFinalStyles(styles, inputId);
               finalStyles.results.forEach((style) => {
                 style.photos.forEach((photo) => {
                   expect(typeof photo.url === 'string' || photo.thumbnail_url === null).to.equal(true);
@@ -350,7 +351,7 @@ describe('helper methods', () => {
               const inputId = random.forth;
               const product = await db.models.Product.find({ id: inputId });
               const { styles } = product[0];
-              const finalStyles = helper.createFinalStyles(styles);
+              const finalStyles = helper.createFinalStyles(styles, inputId);
               finalStyles.results.forEach((style) => {
                 style.photos.forEach((photo) => {
                   expect(typeof photo.url === 'string' || photo.thumbnail_url === null).to.equal(true);
@@ -363,7 +364,7 @@ describe('helper methods', () => {
               const inputId = random.first;
               const product = await db.models.Product.find({ id: inputId });
               const { styles } = product[0];
-              const finalStyles = helper.createFinalStyles(styles);
+              const finalStyles = helper.createFinalStyles(styles, inputId);
               finalStyles.results.forEach((style) => {
                 const skuData = Object.values(style.skus);
                 const skuIdRef = Object.keys(style.skus);
@@ -382,7 +383,7 @@ describe('helper methods', () => {
               const inputId = random.second;
               const product = await db.models.Product.find({ id: inputId });
               const { styles } = product[0];
-              const finalStyles = helper.createFinalStyles(styles);
+              const finalStyles = helper.createFinalStyles(styles, inputId);
               finalStyles.results.forEach((style) => {
                 const skuData = Object.values(style.skus);
                 const skuIdRef = Object.keys(style.skus);
@@ -401,7 +402,7 @@ describe('helper methods', () => {
               const inputId = random.second;
               const product = await db.models.Product.find({ id: inputId });
               const { styles } = product[0];
-              const finalStyles = helper.createFinalStyles(styles);
+              const finalStyles = helper.createFinalStyles(styles, inputId);
               finalStyles.results.forEach((style) => {
                 const skuData = Object.values(style.skus);
                 const skuIdRef = Object.keys(style.skus);
@@ -420,7 +421,7 @@ describe('helper methods', () => {
               const inputId = random.second;
               const product = await db.models.Product.find({ id: inputId });
               const { styles } = product[0];
-              const finalStyles = helper.createFinalStyles(styles);
+              const finalStyles = helper.createFinalStyles(styles, inputId);
               finalStyles.results.forEach((style) => {
                 const skuData = Object.values(style.skus);
                 const skuIdRef = Object.keys(style.skus);
@@ -439,7 +440,7 @@ describe('helper methods', () => {
               const inputId = random.first;
               const product = await db.models.Product.find({ id: inputId });
               const { styles } = product[0];
-              const finalStyles = helper.createFinalStyles(styles);
+              const finalStyles = helper.createFinalStyles(styles, inputId);
               finalStyles.results.forEach((style) => {
                 const skuData = Object.values(style.skus);
                 skuData.forEach((sku) => {
@@ -454,7 +455,7 @@ describe('helper methods', () => {
               const inputId = random.second;
               const product = await db.models.Product.find({ id: inputId });
               const { styles } = product[0];
-              const finalStyles = helper.createFinalStyles(styles);
+              const finalStyles = helper.createFinalStyles(styles, inputId);
               finalStyles.results.forEach((style) => {
                 const skuData = Object.values(style.skus);
                 skuData.forEach((sku) => {
@@ -469,7 +470,7 @@ describe('helper methods', () => {
               const inputId = random.third;
               const product = await db.models.Product.find({ id: inputId });
               const { styles } = product[0];
-              const finalStyles = helper.createFinalStyles(styles);
+              const finalStyles = helper.createFinalStyles(styles, inputId);
               finalStyles.results.forEach((style) => {
                 const skuData = Object.values(style.skus);
                 skuData.forEach((sku) => {
@@ -484,7 +485,7 @@ describe('helper methods', () => {
               const inputId = random.forth;
               const product = await db.models.Product.find({ id: inputId });
               const { styles } = product[0];
-              const finalStyles = helper.createFinalStyles(styles);
+              const finalStyles = helper.createFinalStyles(styles, inputId);
               finalStyles.results.forEach((style) => {
                 const skuData = Object.values(style.skus);
                 skuData.forEach((sku) => {
@@ -498,15 +499,15 @@ describe('helper methods', () => {
           });
         });
       });
-      xdescribe('createFinalStyles specifics', () => {
+      describe('createFinalStyles specifics', () => {
         describe('products with styles', () => {
           describe('style data', () => {
             it('should have the correct styles/data associated with them based on product_id 1 - (based on csvs vs service return data)', async () => {
               const inputId = 1;
               const product = await db.models.Product.find({ id: inputId });
               const { styles } = product[0];
-              const finalStyles = helper.createFinalStyles(styles);
-              expect(finalStyles.product_id).to.equal(1);
+              const finalStyles = helper.createFinalStyles(styles, inputId);
+              expect(finalStyles.product_id).to.equal('1');
               expect(finalStyles.results[0].style_id).to.equal(1);
               expect(finalStyles.results[0].name).to.equal('Forest Green & Black');
               expect(finalStyles.results[0].original_price).to.equal('140.00');
@@ -547,8 +548,8 @@ describe('helper methods', () => {
               const inputId = 50001;
               const product = await db.models.Product.find({ id: inputId });
               const { styles } = product[0];
-              const finalStyles = helper.createFinalStyles(styles);
-              expect(finalStyles.product_id).to.equal(50001);
+              const finalStyles = helper.createFinalStyles(styles, inputId);
+              expect(finalStyles.product_id).to.equal('50001');
               expect(finalStyles.results[0].style_id).to.equal(98285);
               expect(finalStyles.results[0].name).to.equal('Fuchsia');
               expect(finalStyles.results[0].original_price).to.equal('272.00');
@@ -565,9 +566,9 @@ describe('helper methods', () => {
               const inputId = 1000011;
               const product = await db.models.Product.find({ id: inputId });
               const { styles } = product[0];
-              const finalStyles = helper.createFinalStyles(styles);
+              const finalStyles = helper.createFinalStyles(styles, inputId);
 
-              expect(finalStyles.product_id).to.equal(1000011);
+              expect(finalStyles.product_id).to.equal('1000011');
               expect(finalStyles.results[0].style_id).to.equal(1958098);
               expect(finalStyles.results[0].name).to.equal('Ivory');
               expect(finalStyles.results[0].original_price).to.equal('587.00');
@@ -587,7 +588,7 @@ describe('helper methods', () => {
               expect(finalStyles.results[2].default).to.equal(false);
 
               expect(finalStyles.results[3].style_id).to.equal(1958101);
-              expect(finalStyles.results[3].name).to.equal('blue');
+              expect(finalStyles.results[3].name).to.equal('Blue');
               expect(finalStyles.results[3].original_price).to.equal('587.00');
               expect(finalStyles.results[3].sale_price).to.equal(null);
               expect(finalStyles.results[3].default).to.equal(false);
@@ -602,8 +603,8 @@ describe('helper methods', () => {
               const inputId = 250000;
               const product = await db.models.Product.find({ id: inputId });
               const { styles } = product[0];
-              const finalStyles = helper.createFinalStyles(styles);
-              expect(finalStyles.product_id).to.equal(250000);
+              const finalStyles = helper.createFinalStyles(styles, inputId);
+              expect(finalStyles.product_id).to.equal('250000');
               expect(finalStyles.results[0].style_id).to.equal(489445);
               expect(finalStyles.results[0].name).to.equal('Grey');
               expect(finalStyles.results[0].original_price).to.equal('174.00');
@@ -628,7 +629,7 @@ describe('helper methods', () => {
               const inputId = 1;
               const product = await db.models.Product.find({ id: inputId });
               const { styles } = product[0];
-              const finalStyles = helper.createFinalStyles(styles);
+              const finalStyles = helper.createFinalStyles(styles, inputId);
 
               expect(finalStyles.results[0].style_id).to.equal(1);
               expect(finalStyles.results[0].photos[0].url).to.equal('https://images.unsplash.com/photo-1501088430049-71c79fa3283e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80');
@@ -640,14 +641,14 @@ describe('helper methods', () => {
               expect(finalStyles.results[0].photos[2].url).to.equal('https://images.unsplash.com/photo-1549831243-a69a0b3d39e0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2775&q=80');
               expect(finalStyles.results[0].photos[2].thumbnail_url).to.equal('https://images.unsplash.com/photo-1549831243-a69a0b3d39e0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80');
 
-              expect(finalStyles.results[0].photos[3].url).to.equal('https://images.unsplash.com/photo-1527522883525-97119bfce82d?ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80"');
+              expect(finalStyles.results[0].photos[3].url).to.equal('https://images.unsplash.com/photo-1527522883525-97119bfce82d?ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80');
               expect(finalStyles.results[0].photos[3].thumbnail_url).to.equal('https://images.unsplash.com/photo-1527522883525-97119bfce82d?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80');
 
               expect(finalStyles.results[0].photos[4].url).to.equal('https://images.unsplash.com/photo-1556648202-80e751c133da?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80');
               expect(finalStyles.results[0].photos[4].thumbnail_url).to.equal('https://images.unsplash.com/photo-1556648202-80e751c133da?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80');
 
               expect(finalStyles.results[0].photos[5].url).to.equal('https://images.unsplash.com/photo-1532543491484-63e29b3c1f5d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80');
-              expect(finalStyles.results[0].photos[5].thumbnail_url).to.equal('https://images.unsplash.com/photo-1556648202-80e751c133da?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80');
+              expect(finalStyles.results[0].photos[5].thumbnail_url).to.equal('https://images.unsplash.com/photo-1532543491484-63e29b3c1f5d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80');
 
               expect(finalStyles.results[1].style_id).to.equal(2);
               expect(finalStyles.results[1].photos[0].url).to.equal('https://images.unsplash.com/photo-1533779183510-8f55a55f15c1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80');
@@ -698,7 +699,7 @@ describe('helper methods', () => {
               expect(finalStyles.results[3].photos[2].thumbnail_url).to.equal('https://images.unsplash.com/photo-1488554378835-f7acf46e6c98?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80');
 
               expect(finalStyles.results[3].photos[3].url).to.equal('https://images.unsplash.com/photo-1486025402772-bc179c8dfb0e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80');
-              expect(finalStyles.results[3].photos[3].thumbnail_url).to.equal('https://images.unsplash.com/photo-1486025402772-bc179c8dfb0e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=8');
+              expect(finalStyles.results[3].photos[3].thumbnail_url).to.equal('https://images.unsplash.com/photo-1486025402772-bc179c8dfb0e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80');
 
               expect(finalStyles.results[3].photos[4].url).to.equal('https://images.unsplash.com/photo-1473691955023-da1c49c95c78?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80');
               expect(finalStyles.results[3].photos[4].thumbnail_url).to.equal('https://images.unsplash.com/photo-1473691955023-da1c49c95c78?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80');
@@ -730,26 +731,26 @@ describe('helper methods', () => {
               expect(finalStyles.results[5].photos[0].url).to.equal('https://images.unsplash.com/photo-1514866726862-0f081731e63f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80');
               expect(finalStyles.results[5].photos[0].thumbnail_url).to.equal('https://images.unsplash.com/photo-1514866726862-0f081731e63f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80');
 
-              expect(finalStyles.results[5].photos[0].url).to.equal('https://images.unsplash.com/photo-1519689373023-dd07c7988603?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80');
-              expect(finalStyles.results[5].photos[0].thumbnail_url).to.equal('https://images.unsplash.com/photo-1519689373023-dd07c7988603?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80');
+              expect(finalStyles.results[5].photos[1].url).to.equal('https://images.unsplash.com/photo-1519689373023-dd07c7988603?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80');
+              expect(finalStyles.results[5].photos[1].thumbnail_url).to.equal('https://images.unsplash.com/photo-1519689373023-dd07c7988603?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80');
 
-              expect(finalStyles.results[5].photos[0].url).to.equal('https://images.unsplash.com/photo-1506932248762-69d978912b80?ixlib=rb-1.2.1&auto=format&fit=crop&w=2089&q=80');
-              expect(finalStyles.results[5].photos[0].thumbnail_url).to.equal('https://images.unsplash.com/photo-1506932248762-69d978912b80?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80');
+              expect(finalStyles.results[5].photos[2].url).to.equal('https://images.unsplash.com/photo-1506932248762-69d978912b80?ixlib=rb-1.2.1&auto=format&fit=crop&w=2089&q=80');
+              expect(finalStyles.results[5].photos[2].thumbnail_url).to.equal('https://images.unsplash.com/photo-1506932248762-69d978912b80?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80');
 
-              expect(finalStyles.results[5].photos[0].url).to.equal('https://images.unsplash.com/photo-1535639818669-c059d2f038e6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80');
-              expect(finalStyles.results[5].photos[0].thumbnail_url).to.equal('https://images.unsplash.com/photo-1535639818669-c059d2f038e6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80');
+              expect(finalStyles.results[5].photos[3].url).to.equal('https://images.unsplash.com/photo-1535639818669-c059d2f038e6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80');
+              expect(finalStyles.results[5].photos[3].thumbnail_url).to.equal('https://images.unsplash.com/photo-1535639818669-c059d2f038e6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80');
 
-              expect(finalStyles.results[5].photos[0].url).to.equal('https://images.unsplash.com/photo-1498098662025-04e60a212db4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80');
-              expect(finalStyles.results[5].photos[0].thumbnail_url).to.equal('https://images.unsplash.com/photo-1498098662025-04e60a212db4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80');
+              expect(finalStyles.results[5].photos[4].url).to.equal('https://images.unsplash.com/photo-1498098662025-04e60a212db4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80');
+              expect(finalStyles.results[5].photos[4].thumbnail_url).to.equal('https://images.unsplash.com/photo-1498098662025-04e60a212db4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80');
 
-              expect(finalStyles.results[5].photos[0].url).to.equal('https://images.unsplash.com/photo-1421941027568-40ab08ee5592?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1651&q=80');
-              expect(finalStyles.results[5].photos[0].thumbnail_url).to.equal('https://images.unsplash.com/photo-1421941027568-40ab08ee5592?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80');
+              expect(finalStyles.results[5].photos[5].url).to.equal('https://images.unsplash.com/photo-1421941027568-40ab08ee5592?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1651&q=80');
+              expect(finalStyles.results[5].photos[5].thumbnail_url).to.equal('https://images.unsplash.com/photo-1421941027568-40ab08ee5592?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80');
             });
             it('should have the correct photos associated with each style based on the current product style id - for product_id 50001', async () => {
               const inputId = 50001;
               const product = await db.models.Product.find({ id: inputId });
               const { styles } = product[0];
-              const finalStyles = helper.createFinalStyles(styles);
+              const finalStyles = helper.createFinalStyles(styles, inputId);
 
               expect(finalStyles.results[0].style_id).to.equal(98285);
               expect(finalStyles.results[0].photos[0].url).to.equal('https://images.unsplash.com/photo-1530821875964-91927b611bad?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80');
@@ -772,7 +773,7 @@ describe('helper methods', () => {
               const inputId = 250000;
               const product = await db.models.Product.find({ id: inputId });
               const { styles } = product[0];
-              const finalStyles = helper.createFinalStyles(styles);
+              const finalStyles = helper.createFinalStyles(styles, inputId);
               expect(finalStyles.results[0].style_id).to.equal(489445);
               expect(finalStyles.results[0].photos[0].url).to.equal('https://images.unsplash.com/photo-1505248254168-1de4e1abfa78?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1649&q=80');
               expect(finalStyles.results[0].photos[0].thumbnail_url).to.equal('https://images.unsplash.com/photo-1526948128573-703ee1aeb6fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80');
@@ -810,7 +811,8 @@ describe('helper methods', () => {
               const inputId = 1000011;
               const product = await db.models.Product.find({ id: inputId });
               const { styles } = product[0];
-              const finalStyles = helper.createFinalStyles(styles);
+              const finalStyles = helper.createFinalStyles(styles, inputId);
+
               expect(finalStyles.results[0].style_id).to.equal(1958098);
               expect(finalStyles.results[0].photos[0].url).to.equal(null);
               expect(finalStyles.results[0].photos[0].thumbnail_url).to.equal(null);
@@ -837,7 +839,8 @@ describe('helper methods', () => {
               const inputId = 1;
               const product = await db.models.Product.find({ id: inputId });
               const { styles } = product[0];
-              const finalStyles = helper.createFinalStyles(styles);
+              const finalStyles = helper.createFinalStyles(styles, inputId);
+
               expect(finalStyles.results[0].style_id).to.equal(1);
               expect(finalStyles.results[0].skus['1'].quantity).to.equal(8);
               expect(finalStyles.results[0].skus['1'].size).to.equal('XS');
@@ -956,7 +959,7 @@ describe('helper methods', () => {
               const inputId = 50001;
               const product = await db.models.Product.find({ id: inputId });
               const { styles } = product[0];
-              const finalStyles = helper.createFinalStyles(styles);
+              const finalStyles = helper.createFinalStyles(styles, inputId);
               expect(finalStyles.results[0].style_id).to.equal(98285);
               expect(finalStyles.results[0].skus['566560'].quantity).to.equal(36);
               expect(finalStyles.results[0].skus['566560'].size).to.equal('XS');
@@ -999,7 +1002,7 @@ describe('helper methods', () => {
               const inputId = 250000;
               const product = await db.models.Product.find({ id: inputId });
               const { styles } = product[0];
-              const finalStyles = helper.createFinalStyles(styles);
+              const finalStyles = helper.createFinalStyles(styles, inputId);
 
               expect(finalStyles.results[0].style_id).to.equal(489445);
               expect(finalStyles.results[0].skus['2829575'].quantity).to.equal(46);
@@ -1062,7 +1065,8 @@ describe('helper methods', () => {
               const inputId = 1000011;
               const product = await db.models.Product.find({ id: inputId });
               const { styles } = product[0];
-              const finalStyles = helper.createFinalStyles(styles);
+              const finalStyles = helper.createFinalStyles(styles, inputId);
+
               expect(finalStyles.results[0].style_id).to.equal(1958098);
               expect(finalStyles.results[0].skus['11323863'].quantity).to.equal(2);
               expect(finalStyles.results[0].skus['11323863'].size).to.equal('7');
@@ -1160,7 +1164,7 @@ describe('helper methods', () => {
               expect(finalStyles.results[2].skus['11323893'].size).to.equal('11');
 
               expect(finalStyles.results[2].skus['11323894'].quantity).to.equal(51);
-              expect(finalStyles.results[2].skus['113238954'].size).to.equal('11.5');
+              expect(finalStyles.results[2].skus['11323894'].size).to.equal('11.5');
 
               expect(finalStyles.results[2].skus['11323895'].quantity).to.equal(7);
               expect(finalStyles.results[2].skus['11323895'].size).to.equal('12');
@@ -1234,34 +1238,38 @@ describe('helper methods', () => {
               expect(finalStyles.results[4].skus['11323917'].size).to.equal('12');
             });
           });
-          xdescribe('products without styles', () => {
-            it('should return an empty object, when the input styles array is empty - for product id 11', async () => {
+          describe('products without styles', () => {
+            it('should return an empty results array, when the input styles array is empty - for product id 11', async () => {
               const inputId = 11;
               const product = await db.models.Product.find({ id: inputId });
               const { styles } = product[0];
-              const finalStyles = helper.createFinalStyles(styles);
-              expect(finalStyles).to.equal('{}');
+              const finalStyles = helper.createFinalStyles(styles, inputId);
+              expect(finalStyles.results.length).to.equal(0);
+              expect(Number(finalStyles.product_id)).to.equal(inputId);
             });
-            it('should return an empty object, when the input styles array is empty - for product id 22', async () => {
+            it('should return an empty results array, when the input styles array is empty - for product id 22', async () => {
               const inputId = 22;
               const product = await db.models.Product.find({ id: inputId });
               const { styles } = product[0];
-              const finalStyles = helper.createFinalStyles(styles);
-              expect(finalStyles).to.equal('{}');
+              const finalStyles = helper.createFinalStyles(styles, inputId);
+              expect(finalStyles.results.length).to.equal(0);
+              expect(Number(finalStyles.product_id)).to.equal(inputId);
             });
-            it('should return an empty object, when the input styles array is empty - for product id 33', async () => {
+            it('should return an empty results array, when the input styles array is empty - for product id 33', async () => {
               const inputId = 33;
               const product = await db.models.Product.find({ id: inputId });
               const { styles } = product[0];
-              const finalStyles = helper.createFinalStyles(styles);
-              expect(finalStyles).to.equal('{}');
+              const finalStyles = helper.createFinalStyles(styles, inputId);
+              expect(finalStyles.results.length).to.equal(0);
+              expect(Number(finalStyles.product_id)).to.equal(inputId);
             });
-            it('should return an empty object, when the input styles array is empty - for product id 58', async () => {
+            it('should return an empty results array, when the input styles array is empty - for product id 58', async () => {
               const inputId = 58;
               const product = await db.models.Product.find({ id: inputId });
               const { styles } = product[0];
-              const finalStyles = helper.createFinalStyles(styles);
-              expect(finalStyles).to.equal('{}');
+              const finalStyles = helper.createFinalStyles(styles, inputId);
+              expect(finalStyles.results.length).to.equal(0);
+              expect(Number(finalStyles.product_id)).to.equal(inputId);
             });
           });
         });
