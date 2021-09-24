@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-unused-vars */
 module.exports = {
   createFinalStyles: (stylesArr, id) => {
     const finalStyle = {
@@ -44,15 +46,15 @@ module.exports = {
             },
           ];
         }
-        if(!Object.keys(style.skus).length) {
+        if (!Object.keys(style.skus).length) {
           const noSku = {};
-          const tempId = 'not availible';
-          noSku.tempId = {
-            quantity: 0,
+          noSku[1] = {
+            quantity: 1,
             size: 'not availible',
           };
           style.skus = noSku;
         }
+
         const finalObj = {
           style_id: Number(style.id),
           name: style.name,
@@ -67,11 +69,10 @@ module.exports = {
       });
     } else {
       const noSku = {};
-      const tempId = 'not availible';
-      noSku.tempId = {
-        quantity: 0,
+      noSku[1] = {
+        quantity: 1,
         size: 'not availible',
-      }
+      };
       const finalObj = {
         style_id: 1,
         name: 'no styles for product',
@@ -87,7 +88,7 @@ module.exports = {
         ],
         skus: noSku,
       };
-      finalStyle.results.push(finalObj)
+      finalStyle.results.push(finalObj);
     }
 
     return finalStyle;
