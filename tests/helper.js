@@ -30,7 +30,7 @@ const getRandomNumbers = (first, last) => {
   return numberObj;
 };
 
-describe('helper methods', () => {
+xdescribe('helper methods', () => {
   describe('createFinalStyles', () => {
     describe('random product id between 1 - 1000k', async () => {
       const random = await getRandomNumbers(1, 25000);
