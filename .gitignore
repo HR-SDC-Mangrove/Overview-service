@@ -4,3 +4,4 @@ reader/csvs
 reader/json
 reader/finalJSON
 .DS_Store
+/.nyc_output
