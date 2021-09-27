@@ -26,8 +26,8 @@ const createProductsWithFeatures = async (rows, endId, startId) => {
               value: row.feature_value,
             };
 
-            if (records[Number(row.feature_product_id_ref - 950001)]) {
-              await records[row.feature_product_id_ref - 950001].features.push(newFeature);
+            if (records[Number(row.feature_product_id_ref - 600001)]) {
+              await records[row.feature_product_id_ref - 600001].features.push(newFeature);
             }
           }
         };

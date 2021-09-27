@@ -30,46 +30,48 @@ const getRandomNumbers = (first, last) => {
   return numberObj;
 };
 
-xdescribe('helper methods', () => {
+describe('helper methods', () => {
   describe('createFinalStyles', () => {
     describe('random product id between 1 - 1000k', async () => {
       const random = await getRandomNumbers(1, 25000);
-      it(`should take an input of a styles array and output an object - for product id ${random.first}`, async () => {
-        const inputId = random.first;
-        const product = await db.models.Product.find({ id: inputId });
-        const { styles } = product[0];
-        const finalStyles = helper.createFinalStyles(styles, inputId);
-        expect(Array.isArray(styles)).to.equal(true);
-        expect(Array.isArray(finalStyles)).to.equal(false);
-        expect(typeof finalStyles).to.equal('object');
-      });
-      it(`should take an input of a styles array and output an object - for product id ${random.second}`, async () => {
-        const inputId = random.second;
-        const product = await db.models.Product.find({ id: inputId });
-        const { styles } = product[0];
-        const finalStyles = helper.createFinalStyles(styles, inputId);
-        expect(Array.isArray(styles)).to.equal(true);
-        expect(Array.isArray(finalStyles)).to.equal(false);
-        expect(typeof finalStyles).to.equal('object');
-      });
-      it(`should take an input of a styles array and output an object - for product ${random.third}`, async () => {
-        const inputId = random.third;
-        const product = await db.models.Product.find({ id: inputId });
-        const { styles } = product[0];
-        const finalStyles = helper.createFinalStyles(styles, inputId);
-        expect(Array.isArray(styles)).to.equal(true);
-        expect(Array.isArray(finalStyles)).to.equal(false);
-        expect(typeof finalStyles).to.equal('object');
-      });
+      describe('products', () => {
+        it(`should take an input of a styles array and output an object - for product id ${random.first}`, async () => {
+          const inputId = random.first;
+          const product = await db.models.Product.find({ id: inputId });
+          const { styles } = product[0];
+          const finalStyles = helper.createFinalStyles(styles, inputId);
+          expect(Array.isArray(styles)).to.equal(true);
+          expect(Array.isArray(finalStyles)).to.equal(false);
+          expect(typeof finalStyles).to.equal('object');
+        });
+        it(`should take an input of a styles array and output an object - for product id ${random.second}`, async () => {
+          const inputId = random.second;
+          const product = await db.models.Product.find({ id: inputId });
+          const { styles } = product[0];
+          const finalStyles = helper.createFinalStyles(styles, inputId);
+          expect(Array.isArray(styles)).to.equal(true);
+          expect(Array.isArray(finalStyles)).to.equal(false);
+          expect(typeof finalStyles).to.equal('object');
+        });
+        it(`should take an input of a styles array and output an object - for product ${random.third}`, async () => {
+          const inputId = random.third;
+          const product = await db.models.Product.find({ id: inputId });
+          const { styles } = product[0];
+          const finalStyles = helper.createFinalStyles(styles, inputId);
+          expect(Array.isArray(styles)).to.equal(true);
+          expect(Array.isArray(finalStyles)).to.equal(false);
+          expect(typeof finalStyles).to.equal('object');
+        });
 
-      it(`should take an input of a styles array and output an object - for product ${random.forth}`, async () => {
-        const inputId = random.forth;
-        const product = await db.models.Product.find({ id: inputId });
-        const { styles } = product[0];
-        const finalStyles = helper.createFinalStyles(styles, inputId);
-        expect(Array.isArray(styles)).to.equal(true);
-        expect(Array.isArray(finalStyles)).to.equal(false);
-        expect(typeof finalStyles).to.equal('object');
+        it(`should take an input of a styles array and output an object - for product ${random.forth}`, async () => {
+          const inputId = random.forth;
+          const product = await db.models.Product.find({ id: inputId });
+          const { styles } = product[0];
+          const finalStyles = helper.createFinalStyles(styles, inputId);
+          expect(Array.isArray(styles)).to.equal(true);
+          expect(Array.isArray(finalStyles)).to.equal(false);
+          expect(typeof finalStyles).to.equal('object');
+        });
       });
       describe('createFinalStyles result object', () => {
         it(`should contain the correct properties and data types - for product id ${random.first}`, async () => {

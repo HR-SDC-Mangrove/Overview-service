@@ -28,316 +28,510 @@ const getRandomNumbers = (first, last) => {
   return numberObj;
 };
 
-describe('products, mongo style 🔥', () => {
-  describe('query speeds', () => {
+describe('', async () => {
+  await console.log('3, 2, 1 GO! mongo style 🔥');
+  describe('query speeds', async () => {
     describe('random products between ids 1 and 100,000', async () => {
-      const random = getRandomNumbers(1, 100000);
-      it(`it should return a query in less than 5ms for product id - ${random.first}`, async () => {
-        const inputId = random.first;
-        const product = await db.models.Product.find({ id: inputId }).explain('netStates');
-        const executionTime = product.executionStats.executionTimeMillis;
+      const random = await getRandomNumbers(1, 100000);
+      describe('product response time', () => {
+        it(`it should return a query in less than 2ms for product id - ${random.first}`, async () => {
+          const inputId = random.first;
+          const product = await db.models.Product.find({ id: inputId }).explain('executionStats');
+          const executionTime = product.executionStats.executionTimeMillis;
+          if (executionTime > 10) {
+            await console.log(`total ${executionTime}ms`, '👀 uh oh, looks like query times are high ⛔️');
+          } else {
+            await console.log(`total ${executionTime}ms`, '🔥 querying with the speed of mongo 🚀');
+          }
+          expect(executionTime < 2).to.equal(true);
+        });
+        it(`it should return a query in less than 2ms for product id - ${random.second}`, async () => {
+          const inputId = random.first;
+          const product = await db.models.Product.find({ id: inputId }).explain('executionStats');
+          const executionTime = product.executionStats.executionTimeMillis;
+          if (executionTime > 10) {
+            await console.log(`total ${executionTime}ms`, '👀 uh oh, looks like query times are high ⛔️');
+          } else {
+            await console.log(`total ${executionTime}ms`, '🔥 querying with the speed of mongo 🚀');
+          }
+          expect(executionTime < 2).to.equal(true);
+        });
+        it(`it should return a query in less than 2ms for product id - ${random.third}`, async () => {
+          const inputId = random.first;
+          const product = await db.models.Product.find({ id: inputId }).explain('executionStats');
+          const executionTime = product.executionStats.executionTimeMillis;
+          if (executionTime > 10) {
+            await console.log(`total ${executionTime}ms`, '👀 uh oh, looks like query times are high ⛔️');
+          } else {
+            await console.log(`total ${executionTime}ms`, '🔥 querying with the speed of mongo 🚀');
+          }
+          expect(executionTime < 2).to.equal(true);
+        });
+        it(`it should return a query in less than 2ms for product id - ${random.forth}`, async () => {
+          const inputId = random.first;
+          const product = await db.models.Product.find({ id: inputId }).explain('executionStats');
+          const executionTime = product.executionStats.executionTimeMillis;
 
-        expect(executionTime < 5).to.equal(true);
-      });
-      it(`it should return a query in less than 5ms for product id - ${random.second}`, async () => {
-        const inputId = random.first;
-        const product = await db.models.Product.find({ id: inputId }).explain('netStates');
-        const executionTime = product.executionStats.executionTimeMillis;
-
-        expect(executionTime < 5).to.equal(true);
-      });
-      it(`it should return a query in less than 5ms for product id - ${random.third}`, async () => {
-        const inputId = random.first;
-        const product = await db.models.Product.find({ id: inputId }).explain('netStates');
-        const executionTime = product.executionStats.executionTimeMillis;
-
-        expect(executionTime < 5).to.equal(true);
-      });
-      it(`it should return a query in less than 5ms for product id - ${random.forth}`, async () => {
-        const inputId = random.first;
-        const product = await db.models.Product.find({ id: inputId }).explain('netStates');
-        const executionTime = product.executionStats.executionTimeMillis;
-
-        expect(executionTime < 5).to.equal(true);
+          if (executionTime > 10) {
+            await console.log(`total ${executionTime}ms`, '👀 uh oh, looks like query times are high ⛔️');
+          } else {
+            await console.log(`total ${executionTime}ms`, '🔥 querying with the speed of mongo 🚀');
+          }
+          expect(executionTime < 2).to.equal(true);
+        });
       });
     });
     describe('random products between ids 100,001 and 200,000', async () => {
       const random = getRandomNumbers(100001, 200000);
-      it(`it should return a query in less than 5ms for product id - ${random.first}`, async () => {
+      it(`it should return a query in less than 2ms for product id - ${random.first}`, async () => {
         const inputId = random.first;
-        const product = await db.models.Product.find({ id: inputId }).explain('netStates');
+        const product = await db.models.Product.find({ id: inputId }).explain('executionStats');
         const executionTime = product.executionStats.executionTimeMillis;
 
-        expect(executionTime < 5).to.equal(true);
+        if (executionTime > 10) {
+          await console.log(`total ${executionTime}ms`, '👀 uh oh, looks like query times are high ⛔️');
+        } else {
+          await console.log(`total ${executionTime}ms`, '🔥 querying with the speed of mongo 🚀');
+        }
+        expect(executionTime < 2).to.equal(true);
       });
-      it(`it should return a query in less than 5ms for product id - ${random.second}`, async () => {
+      it(`it should return a query in less than 2ms for product id - ${random.second}`, async () => {
         const inputId = random.first;
-        const product = await db.models.Product.find({ id: inputId }).explain('netStates');
+        const product = await db.models.Product.find({ id: inputId }).explain('executionStats');
         const executionTime = product.executionStats.executionTimeMillis;
 
-        expect(executionTime < 5).to.equal(true);
+        if (executionTime > 10) {
+          await console.log(`total ${executionTime}ms`, '👀 uh oh, looks like query times are high ⛔️');
+        } else {
+          await console.log(`total ${executionTime}ms`, '🔥 querying with the speed of mongo 🚀');
+        }
+        expect(executionTime < 2).to.equal(true);
       });
-      it(`it should return a query in less than 5ms for product id - ${random.third}`, async () => {
+      it(`it should return a query in less than 2ms for product id - ${random.third}`, async () => {
         const inputId = random.first;
-        const product = await db.models.Product.find({ id: inputId }).explain('netStates');
+        const product = await db.models.Product.find({ id: inputId }).explain('executionStats');
         const executionTime = product.executionStats.executionTimeMillis;
 
-        expect(executionTime < 5).to.equal(true);
+        if (executionTime > 10) {
+          await console.log(`total ${executionTime}ms`, '👀 uh oh, looks like query times are high ⛔️');
+        } else {
+          await console.log(`total ${executionTime}ms`, '🔥 querying with the speed of mongo 🚀');
+        }
+        expect(executionTime < 2).to.equal(true);
       });
-      it(`it should return a query in less than 5ms for product id - ${random.forth}`, async () => {
+      it(`it should return a query in less than 2ms for product id - ${random.forth}`, async () => {
         const inputId = random.first;
-        const product = await db.models.Product.find({ id: inputId }).explain('netStates');
+        const product = await db.models.Product.find({ id: inputId }).explain('executionStats');
         const executionTime = product.executionStats.executionTimeMillis;
 
-        expect(executionTime < 5).to.equal(true);
+        if (executionTime > 10) {
+          await console.log(`total ${executionTime}ms`, '👀 uh oh, looks like query times are high ⛔️');
+        } else {
+          await console.log(`total ${executionTime}ms`, '🔥 querying with the speed of mongo 🚀');
+        }
+        expect(executionTime < 2).to.equal(true);
       });
     });
     describe('random products between ids 200,001 and 300,000', async () => {
       const random = getRandomNumbers(200001, 300000);
-      it(`it should return a query in less than 5ms for product id - ${random.first}`, async () => {
+      it(`it should return a query in less than 2ms for product id - ${random.first}`, async () => {
         const inputId = random.first;
-        const product = await db.models.Product.find({ id: inputId }).explain('netStates');
+        const product = await db.models.Product.find({ id: inputId }).explain('executionStats');
         const executionTime = product.executionStats.executionTimeMillis;
 
-        expect(executionTime < 5).to.equal(true);
+        if (executionTime > 10) {
+          await console.log(`total ${executionTime}ms`, '👀 uh oh, looks like query times are high ⛔️');
+        } else {
+          await console.log(`total ${executionTime}ms`, '🔥 querying with the speed of mongo 🚀');
+        }
+        expect(executionTime < 2).to.equal(true);
       });
-      it(`it should return a query in less than 5ms for product id - ${random.second}`, async () => {
+      it(`it should return a query in less than 2ms for product id - ${random.second}`, async () => {
         const inputId = random.first;
-        const product = await db.models.Product.find({ id: inputId }).explain('netStates');
+        const product = await db.models.Product.find({ id: inputId }).explain('executionStats');
         const executionTime = product.executionStats.executionTimeMillis;
 
-        expect(executionTime < 5).to.equal(true);
+        if (executionTime > 10) {
+          await console.log(`total ${executionTime}ms`, '👀 uh oh, looks like query times are high ⛔️');
+        } else {
+          await console.log(`total ${executionTime}ms`, '🔥 querying with the speed of mongo 🚀');
+        }
+        expect(executionTime < 2).to.equal(true);
       });
-      it(`it should return a query in less than 5ms for product id - ${random.third}`, async () => {
+      it(`it should return a query in less than 2ms for product id - ${random.third}`, async () => {
         const inputId = random.first;
-        const product = await db.models.Product.find({ id: inputId }).explain('netStates');
+        const product = await db.models.Product.find({ id: inputId }).explain('executionStats');
         const executionTime = product.executionStats.executionTimeMillis;
-
-        expect(executionTime < 5).to.equal(true);
+        if (executionTime > 10) {
+          await console.log(`total ${executionTime}ms`, '👀 uh oh, looks like query times are high ⛔️');
+        } else {
+          await console.log(`total ${executionTime}ms`, '🔥 querying with the speed of mongo 🚀');
+        }
+        expect(executionTime < 2).to.equal(true);
       });
-      it(`it should return a query in less than 5ms for product id - ${random.forth}`, async () => {
+      it(`it should return a query in less than 2ms for product id - ${random.forth}`, async () => {
         const inputId = random.first;
-        const product = await db.models.Product.find({ id: inputId }).explain('netStates');
+        const product = await db.models.Product.find({ id: inputId }).explain('executionStats');
         const executionTime = product.executionStats.executionTimeMillis;
 
-        expect(executionTime < 5).to.equal(true);
+        if (executionTime > 10) {
+          await console.log(`total ${executionTime}ms`, '👀 uh oh, looks like query times are high ⛔️');
+        } else {
+          await console.log(`total ${executionTime}ms`, '🔥 querying with the speed of mongo 🚀');
+        }
+        expect(executionTime < 2).to.equal(true);
       });
     });
     describe('random products between ids 300,001 and 400,000', async () => {
       const random = getRandomNumbers(300001, 400000);
-      it(`it should return a query in less than 5ms for product id - ${random.first}`, async () => {
+      it(`it should return a query in less than 2ms for product id - ${random.first}`, async () => {
         const inputId = random.first;
-        const product = await db.models.Product.find({ id: inputId }).explain('netStates');
+        const product = await db.models.Product.find({ id: inputId }).explain('executionStats');
         const executionTime = product.executionStats.executionTimeMillis;
 
-        expect(executionTime < 5).to.equal(true);
+        if (executionTime > 10) {
+          await console.log(`total ${executionTime}ms`, '👀 uh oh, looks like query times are high ⛔️');
+        } else {
+          await console.log(`total ${executionTime}ms`, '🔥 querying with the speed of mongo 🚀');
+        }
+        expect(executionTime < 2).to.equal(true);
       });
-      it(`it should return a query in less than 5ms for product id - ${random.second}`, async () => {
+      it(`it should return a query in less than 2ms for product id - ${random.second}`, async () => {
         const inputId = random.first;
-        const product = await db.models.Product.find({ id: inputId }).explain('netStates');
+        const product = await db.models.Product.find({ id: inputId }).explain('executionStats');
         const executionTime = product.executionStats.executionTimeMillis;
 
-        expect(executionTime < 5).to.equal(true);
+        if (executionTime > 10) {
+          await console.log(`total ${executionTime}ms`, '👀 uh oh, looks like query times are high ⛔️');
+        } else {
+          await console.log(`total ${executionTime}ms`, '🔥 querying with the speed of mongo 🚀');
+        }
+        expect(executionTime < 2).to.equal(true);
       });
-      it(`it should return a query in less than 5ms for product id - ${random.third}`, async () => {
+      it(`it should return a query in less than 2ms for product id - ${random.third}`, async () => {
         const inputId = random.first;
-        const product = await db.models.Product.find({ id: inputId }).explain('netStates');
+        const product = await db.models.Product.find({ id: inputId }).explain('executionStats');
         const executionTime = product.executionStats.executionTimeMillis;
 
-        expect(executionTime < 5).to.equal(true);
+        if (executionTime > 10) {
+          await console.log(`total ${executionTime}ms`, '👀 uh oh, looks like query times are high ⛔️');
+        } else {
+          await console.log(`total ${executionTime}ms`, '🔥 querying with the speed of mongo 🚀');
+        }
+        expect(executionTime < 2).to.equal(true);
       });
-      it(`it should return a query in less than 5ms for product id - ${random.forth}`, async () => {
+      it(`it should return a query in less than 2ms for product id - ${random.forth}`, async () => {
         const inputId = random.first;
-        const product = await db.models.Product.find({ id: inputId }).explain('netStates');
+        const product = await db.models.Product.find({ id: inputId }).explain('executionStats');
         const executionTime = product.executionStats.executionTimeMillis;
 
-        expect(executionTime < 5).to.equal(true);
+        if (executionTime > 10) {
+          await console.log(`total ${executionTime}ms`, '👀 uh oh, looks like query times are high ⛔️');
+        } else {
+          await console.log(`total ${executionTime}ms`, '🔥 querying with the speed of mongo 🚀');
+        }
+        expect(executionTime < 2).to.equal(true);
       });
     });
     describe('random products between ids 400,001 and 500,000', async () => {
       const random = getRandomNumbers(400001, 500000);
-      it(`it should return a query in less than 5ms for product id - ${random.first}`, async () => {
+      it(`it should return a query in less than 2ms for product id - ${random.first}`, async () => {
         const inputId = random.first;
-        const product = await db.models.Product.find({ id: inputId }).explain('netStates');
+        const product = await db.models.Product.find({ id: inputId }).explain('executionStats');
         const executionTime = product.executionStats.executionTimeMillis;
 
-        expect(executionTime < 5).to.equal(true);
+        if (executionTime > 10) {
+          await console.log(`total ${executionTime}ms`, '👀 uh oh, looks like query times are high ⛔️');
+        } else {
+          await console.log(`total ${executionTime}ms`, '🔥 querying with the speed of mongo 🚀');
+        }
+        expect(executionTime < 2).to.equal(true);
       });
-      it(`it should return a query in less than 5ms for product id - ${random.second}`, async () => {
+      it(`it should return a query in less than 2ms for product id - ${random.second}`, async () => {
         const inputId = random.first;
-        const product = await db.models.Product.find({ id: inputId }).explain('netStates');
+        const product = await db.models.Product.find({ id: inputId }).explain('executionStats');
         const executionTime = product.executionStats.executionTimeMillis;
 
-        expect(executionTime < 5).to.equal(true);
+        if (executionTime > 10) {
+          await console.log(`total ${executionTime}ms`, '👀 uh oh, looks like query times are high ⛔️');
+        } else {
+          await console.log(`total ${executionTime}ms`, '🔥 querying with the speed of mongo 🚀');
+        }
+        expect(executionTime < 2).to.equal(true);
       });
-      it(`it should return a query in less than 5ms for product id - ${random.third}`, async () => {
+      it(`it should return a query in less than 2ms for product id - ${random.third}`, async () => {
         const inputId = random.first;
-        const product = await db.models.Product.find({ id: inputId }).explain('netStates');
+        const product = await db.models.Product.find({ id: inputId }).explain('executionStats');
         const executionTime = product.executionStats.executionTimeMillis;
 
-        expect(executionTime < 5).to.equal(true);
+        if (executionTime > 10) {
+          await console.log(`total ${executionTime}ms`, '👀 uh oh, looks like query times are high ⛔️');
+        } else {
+          await console.log(`total ${executionTime}ms`, '🔥 querying with the speed of mongo 🚀');
+        }
+        expect(executionTime < 2).to.equal(true);
       });
-      it(`it should return a query in less than 5ms for product id - ${random.forth}`, async () => {
+      it(`it should return a query in less than 2ms for product id - ${random.forth}`, async () => {
         const inputId = random.first;
-        const product = await db.models.Product.find({ id: inputId }).explain('netStates');
+        const product = await db.models.Product.find({ id: inputId }).explain('executionStats');
         const executionTime = product.executionStats.executionTimeMillis;
 
-        expect(executionTime < 5).to.equal(true);
+        if (executionTime > 10) {
+          await console.log(`total ${executionTime}ms`, '👀 uh oh, looks like query times are high ⛔️');
+        } else {
+          await console.log(`total ${executionTime}ms`, '🔥 querying with the speed of mongo 🚀');
+        }
+        expect(executionTime < 2).to.equal(true);
       });
     });
     describe('random products between ids 500,001 and 600,000', async () => {
       const random = getRandomNumbers(500001, 600000);
-      it(`it should return a query in less than 5ms for product id - ${random.first}`, async () => {
+      it(`it should return a query in less than 2ms for product id - ${random.first}`, async () => {
         const inputId = random.first;
-        const product = await db.models.Product.find({ id: inputId }).explain('netStates');
+        const product = await db.models.Product.find({ id: inputId }).explain('executionStats');
         const executionTime = product.executionStats.executionTimeMillis;
 
-        expect(executionTime < 5).to.equal(true);
+        if (executionTime > 10) {
+          await console.log(`total ${executionTime}ms`, '👀 uh oh, looks like query times are high ⛔️');
+        } else {
+          await console.log(`total ${executionTime}ms`, '🔥 querying with the speed of mongo 🚀');
+        }
+        expect(executionTime < 2).to.equal(true);
       });
-      it(`it should return a query in less than 5ms for product id - ${random.second}`, async () => {
+      it(`it should return a query in less than 2ms for product id - ${random.second}`, async () => {
         const inputId = random.first;
-        const product = await db.models.Product.find({ id: inputId }).explain('netStates');
+        const product = await db.models.Product.find({ id: inputId }).explain('executionStats');
         const executionTime = product.executionStats.executionTimeMillis;
-
-        expect(executionTime < 5).to.equal(true);
+        if (executionTime > 10) {
+          await console.log(`total ${executionTime}ms`, '👀 uh oh, looks like query times are high ⛔️');
+        } else {
+          await console.log(`total ${executionTime}ms`, '🔥 querying with the speed of mongo 🚀');
+        }
+        expect(executionTime < 2).to.equal(true);
       });
-      it(`it should return a query in less than 5ms for product id - ${random.third}`, async () => {
+      it(`it should return a query in less than 2ms for product id - ${random.third}`, async () => {
         const inputId = random.first;
-        const product = await db.models.Product.find({ id: inputId }).explain('netStates');
+        const product = await db.models.Product.find({ id: inputId }).explain('executionStats');
         const executionTime = product.executionStats.executionTimeMillis;
 
-        expect(executionTime < 5).to.equal(true);
+        if (executionTime > 10) {
+          await console.log(`total ${executionTime}ms`, '👀 uh oh, looks like query times are high ⛔️');
+        } else {
+          await console.log(`total ${executionTime}ms`, '🔥 querying with the speed of mongo 🚀');
+        }
+        expect(executionTime < 2).to.equal(true);
       });
-      it(`it should return a query in less than 5ms for product id - ${random.forth}`, async () => {
+      it(`it should return a query in less than 2ms for product id - ${random.forth}`, async () => {
         const inputId = random.first;
-        const product = await db.models.Product.find({ id: inputId }).explain('netStates');
+        const product = await db.models.Product.find({ id: inputId }).explain('executionStats');
         const executionTime = product.executionStats.executionTimeMillis;
 
-        expect(executionTime < 5).to.equal(true);
+        if (executionTime > 10) {
+          await console.log(`total ${executionTime}ms`, '👀 uh oh, looks like query times are high ⛔️');
+        } else {
+          await console.log(`total ${executionTime}ms`, '🔥 querying with the speed of mongo 🚀');
+        }
+        expect(executionTime < 2).to.equal(true);
       });
     });
     describe('random products between ids 600,001 and 700,000', async () => {
       const random = getRandomNumbers(600001, 700000);
-      it(`it should return a query in less than 5ms for product id - ${random.first}`, async () => {
+      it(`it should return a query in less than 2ms for product id - ${random.first}`, async () => {
         const inputId = random.first;
-        const product = await db.models.Product.find({ id: inputId }).explain('netStates');
+        const product = await db.models.Product.find({ id: inputId }).explain('executionStats');
         const executionTime = product.executionStats.executionTimeMillis;
 
-        expect(executionTime < 5).to.equal(true);
+        if (executionTime > 10) {
+          await console.log(`total ${executionTime}ms`, '👀 uh oh, looks like query times are high ⛔️');
+        } else {
+          await console.log(`total ${executionTime}ms`, '🔥 querying with the speed of mongo 🚀');
+        }
+        expect(executionTime < 2).to.equal(true);
       });
-      it(`it should return a query in less than 5ms for product id - ${random.second}`, async () => {
+      it(`it should return a query in less than 2ms for product id - ${random.second}`, async () => {
         const inputId = random.first;
-        const product = await db.models.Product.find({ id: inputId }).explain('netStates');
+        const product = await db.models.Product.find({ id: inputId }).explain('executionStats');
         const executionTime = product.executionStats.executionTimeMillis;
 
-        expect(executionTime < 5).to.equal(true);
+        if (executionTime > 10) {
+          await console.log(`total ${executionTime}ms`, '👀 uh oh, looks like query times are high ⛔️');
+        } else {
+          await console.log(`total ${executionTime}ms`, '🔥 querying with the speed of mongo 🚀');
+        }
+        expect(executionTime < 2).to.equal(true);
       });
-      it(`it should return a query in less than 5ms for product id - ${random.third}`, async () => {
+      it(`it should return a query in less than 2ms for product id - ${random.third}`, async () => {
         const inputId = random.first;
-        const product = await db.models.Product.find({ id: inputId }).explain('netStates');
+        const product = await db.models.Product.find({ id: inputId }).explain('executionStats');
         const executionTime = product.executionStats.executionTimeMillis;
 
-        expect(executionTime < 5).to.equal(true);
+        if (executionTime > 10) {
+          await console.log(`total ${executionTime}ms`, '👀 uh oh, looks like query times are high ⛔️');
+        } else {
+          await console.log(`total ${executionTime}ms`, '🔥 querying with the speed of mongo 🚀');
+        }
+        expect(executionTime < 2).to.equal(true);
       });
-      it(`it should return a query in less than 5ms for product id - ${random.forth}`, async () => {
+      it(`it should return a query in less than 2ms for product id - ${random.forth}`, async () => {
         const inputId = random.first;
-        const product = await db.models.Product.find({ id: inputId }).explain('netStates');
+        const product = await db.models.Product.find({ id: inputId }).explain('executionStats');
         const executionTime = product.executionStats.executionTimeMillis;
 
-        expect(executionTime < 5).to.equal(true);
+        if (executionTime > 10) {
+          await console.log(`total ${executionTime}ms`, '👀 uh oh, looks like query times are high ⛔️');
+        } else {
+          await console.log(`total ${executionTime}ms`, '🔥 querying with the speed of mongo 🚀');
+        }
+        expect(executionTime < 2).to.equal(true);
       });
     });
     describe('random products between ids 700,001 and 800,000', async () => {
       const random = getRandomNumbers(7000001, 800000);
-      it(`it should return a query in less than 5ms for product id - ${random.first}`, async () => {
+      it(`it should return a query in less than 2ms for product id - ${random.first}`, async () => {
         const inputId = random.first;
-        const product = await db.models.Product.find({ id: inputId }).explain('netStates');
+        const product = await db.models.Product.find({ id: inputId }).explain('executionStats');
         const executionTime = product.executionStats.executionTimeMillis;
-
-        expect(executionTime < 5).to.equal(true);
+        if (executionTime > 10) {
+          await console.log(`total ${executionTime}ms`, '👀 uh oh, looks like query times are high ⛔️');
+        } else {
+          await console.log(`total ${executionTime}ms`, '🔥 querying with the speed of mongo 🚀');
+        }
+        expect(executionTime < 2).to.equal(true);
       });
-      it(`it should return a query in less than 5ms for product id - ${random.second}`, async () => {
+      it(`it should return a query in less than 2ms for product id - ${random.second}`, async () => {
         const inputId = random.first;
-        const product = await db.models.Product.find({ id: inputId }).explain('netStates');
+        const product = await db.models.Product.find({ id: inputId }).explain('executionStats');
         const executionTime = product.executionStats.executionTimeMillis;
 
-        expect(executionTime < 5).to.equal(true);
+        if (executionTime > 10) {
+          await console.log(`total ${executionTime}ms`, '👀 uh oh, looks like query times are high ⛔️');
+        } else {
+          await console.log(`total ${executionTime}ms`, '🔥 querying with the speed of mongo 🚀');
+        }
+        expect(executionTime < 2).to.equal(true);
       });
-      it(`it should return a query in less than 5ms for product id - ${random.third}`, async () => {
+      it(`it should return a query in less than 2ms for product id - ${random.third}`, async () => {
         const inputId = random.first;
-        const product = await db.models.Product.find({ id: inputId }).explain('netStates');
+        const product = await db.models.Product.find({ id: inputId }).explain('executionStats');
         const executionTime = product.executionStats.executionTimeMillis;
 
-        expect(executionTime < 5).to.equal(true);
+        if (executionTime > 10) {
+          await console.log(`total ${executionTime}ms`, '👀 uh oh, looks like query times are high ⛔️');
+        } else {
+          await console.log(`total ${executionTime}ms`, '🔥 querying with the speed of mongo 🚀');
+        }
+        expect(executionTime < 2).to.equal(true);
       });
-      it(`it should return a query in less than 5ms for product id - ${random.forth}`, async () => {
+      it(`it should return a query in less than 2ms for product id - ${random.forth}`, async () => {
         const inputId = random.first;
-        const product = await db.models.Product.find({ id: inputId }).explain('netStates');
+        const product = await db.models.Product.find({ id: inputId }).explain('executionStats');
         const executionTime = product.executionStats.executionTimeMillis;
 
-        expect(executionTime < 5).to.equal(true);
+        if (executionTime > 10) {
+          await console.log(`total ${executionTime}ms`, '👀 uh oh, looks like query times are high ⛔️');
+        } else {
+          await console.log(`total ${executionTime}ms`, '🔥 querying with the speed of mongo 🚀');
+        }
+        expect(executionTime < 2).to.equal(true);
       });
     });
     describe('random products between ids 800,001 and 900,000', async () => {
       const random = getRandomNumbers(800001, 900000);
-      it(`it should return a query in less than 5ms for product id - ${random.first}`, async () => {
+      it(`it should return a query in less than 2ms for product id - ${random.first}`, async () => {
         const inputId = random.first;
-        const product = await db.models.Product.find({ id: inputId }).explain('netStates');
+        const product = await db.models.Product.find({ id: inputId }).explain('executionStats');
         const executionTime = product.executionStats.executionTimeMillis;
 
-        expect(executionTime < 5).to.equal(true);
+        if (executionTime > 10) {
+          await console.log(`total ${executionTime}ms`, '👀 uh oh, looks like query times are high ⛔️');
+        } else {
+          await console.log(`total ${executionTime}ms`, '🔥 querying with the speed of mongo 🚀');
+        }
+        expect(executionTime < 2).to.equal(true);
       });
-      it(`it should return a query in less than 5ms for product id - ${random.second}`, async () => {
+      it(`it should return a query in less than 2ms for product id - ${random.second}`, async () => {
         const inputId = random.first;
-        const product = await db.models.Product.find({ id: inputId }).explain('netStates');
+        const product = await db.models.Product.find({ id: inputId }).explain('executionStats');
         const executionTime = product.executionStats.executionTimeMillis;
-
-        expect(executionTime < 5).to.equal(true);
+        if (executionTime > 10) {
+          await console.log(`total ${executionTime}ms`, '👀 uh oh, looks like query times are high ⛔️');
+        } else {
+          await console.log(`total ${executionTime}ms`, '🔥 querying with the speed of mongo 🚀');
+        }
+        expect(executionTime < 2).to.equal(true);
       });
-      it(`it should return a query in less than 5ms for product id - ${random.third}`, async () => {
+      it(`it should return a query in less than 2ms for product id - ${random.third}`, async () => {
         const inputId = random.first;
-        const product = await db.models.Product.find({ id: inputId }).explain('netStates');
+        const product = await db.models.Product.find({ id: inputId }).explain('executionStats');
         const executionTime = product.executionStats.executionTimeMillis;
 
-        expect(executionTime < 5).to.equal(true);
+        if (executionTime > 10) {
+          await console.log(`total ${executionTime}ms`, '👀 uh oh, looks like query times are high ⛔️');
+        } else {
+          await console.log(`total ${executionTime}ms`, '🔥 querying with the speed of mongo 🚀');
+        }
+        expect(executionTime < 2).to.equal(true);
       });
-      it(`it should return a query in less than 5ms for product id - ${random.forth}`, async () => {
+      it(`it should return a query in less than 2ms for product id - ${random.forth}`, async () => {
         const inputId = random.first;
-        const product = await db.models.Product.find({ id: inputId }).explain('netStates');
+        const product = await db.models.Product.find({ id: inputId }).explain('executionStats');
         const executionTime = product.executionStats.executionTimeMillis;
-
-        expect(executionTime < 5).to.equal(true);
+        if (executionTime > 10) {
+          await console.log(`total ${executionTime}ms`, '👀 uh oh, looks like query times are high ⛔️');
+        } else {
+          await console.log(`total ${executionTime}ms`, '🔥 querying with the speed of mongo 🚀');
+        }
+        expect(executionTime < 2).to.equal(true);
       });
     });
     describe('random products between ids 900,001 and 1,000,011 ', async () => {
       const random = getRandomNumbers(900001, 1000011);
-      it(`it should return a query in less than 5ms for product id - ${random.first}`, async () => {
+      it(`it should return a query in less than 2ms for product id - ${random.first}`, async () => {
         const inputId = random.first;
-        const product = await db.models.Product.find({ id: inputId }).explain('netStates');
+        const product = await db.models.Product.find({ id: inputId }).explain('executionStats');
         const executionTime = product.executionStats.executionTimeMillis;
-
-        expect(executionTime < 5).to.equal(true);
+        if (executionTime > 10) {
+          await console.log(`total ${executionTime}ms`, '👀 uh oh, looks like query times are high ⛔️');
+        } else {
+          await console.log(`total ${executionTime}ms`, '🔥 querying with the speed of mongo 🚀');
+        }
+        expect(executionTime < 2).to.equal(true);
       });
-      it(`it should return a query in less than 5ms for product id - ${random.second}`, async () => {
+      it(`it should return a query in less than 2ms for product id - ${random.second}`, async () => {
         const inputId = random.first;
-        const product = await db.models.Product.find({ id: inputId }).explain('netStates');
+        const product = await db.models.Product.find({ id: inputId }).explain('executionStats');
         const executionTime = product.executionStats.executionTimeMillis;
 
-        expect(executionTime < 5).to.equal(true);
+        if (executionTime > 10) {
+          await console.log(`total ${executionTime}ms`, '👀 uh oh, looks like query times are high ⛔️');
+        } else {
+          await console.log(`total ${executionTime}ms`, '🔥 querying with the speed of mongo 🚀');
+        }
+        expect(executionTime < 2).to.equal(true);
       });
-      it(`it should return a query in less than 5ms for product id - ${random.third}`, async () => {
+      it(`it should return a query in less than 2ms for product id - ${random.third}`, async () => {
         const inputId = random.first;
-        const product = await db.models.Product.find({ id: inputId }).explain('netStates');
+        const product = await db.models.Product.find({ id: inputId }).explain('executionStats');
         const executionTime = product.executionStats.executionTimeMillis;
 
-        expect(executionTime < 5).to.equal(true);
+        if (executionTime > 10) {
+          await console.log(`total ${executionTime}ms`, '👀 uh oh, looks like query times are high ⛔️');
+        } else {
+          await console.log(`total ${executionTime}ms`, '🔥 querying with the speed of mongo 🚀');
+        }
+        expect(executionTime < 2).to.equal(true);
       });
-      it(`it should return a query in less than 5ms for product id - ${random.forth}`, async () => {
+      it(`it should return a query in less than 2ms for product id - ${random.forth}`, async () => {
         const inputId = random.first;
-        const product = await db.models.Product.find({ id: inputId }).explain('netStates');
+        const product = await db.models.Product.find({ id: inputId }).explain('executionStats');
         const executionTime = product.executionStats.executionTimeMillis;
 
-        expect(executionTime < 5).to.equal(true);
+        if (executionTime > 10) {
+          await console.log(`total ${executionTime}ms`, '👀 uh oh, looks like query times are high ⛔️');
+        } else {
+          await console.log(`total ${executionTime}ms`, '🔥 querying with the speed of mongo 🚀');
+        }
+        expect(executionTime < 2).to.equal(true);
       });
     });
   });

@@ -15,14 +15,6 @@ module.exports = {
         const ogPrice = `${style.original_price}.00`;
         let { photos } = style;
 
-        photos = photos.map((photo) => {
-          const newObj = {
-            url: photo.url,
-            thumbnail_url: photo.thmbnail_url,
-          };
-          return newObj;
-        });
-
         if (style.default === '1') {
           defaultS = true;
         }

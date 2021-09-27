@@ -24,8 +24,8 @@ const combine = async () => {
     Object.values(photos).forEach(async (style) => {
       const number = Number(style.product_id_ref);
 
-      if (records[number - 950001]) {
-        await records[number - 950001].styles.push(style);
+      if (records[number - 600001]) {
+        await records[number - 600001].styles.push(style);
       }
     });
     dest.write(JSON.stringify(records));

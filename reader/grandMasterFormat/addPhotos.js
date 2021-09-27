@@ -23,7 +23,7 @@ const addPhotos = async (rows, endId, startId) => {
               console.log('current count ', count);
             }
             const newPhotos = {
-              thmbnail_url: row.photo_thumbnail_url,
+              thumbnail_url: row.photo_thumbnail_url,
               url: row.photo_url,
             };
             // console.log(records.includes({id: 98285}))
