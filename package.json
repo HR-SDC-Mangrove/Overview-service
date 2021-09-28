@@ -4,7 +4,7 @@
   "description": "",
   "main": "config.js",
   "scripts": {
-    "test:mocha":"mocha --timeout 0 tests --exit",
+    "test:mocha": "mocha --timeout 0 tests --exit",
     "test:k6": "k6 run k6_tests/CRR-individual-id-tests.js; k6 run k6_tests/CRR-random-ids-test.js",
     "test:coverage": "nyc mocha --timeoout 0 tests --exit",
     "start:dev": "nodemon service/index.js"

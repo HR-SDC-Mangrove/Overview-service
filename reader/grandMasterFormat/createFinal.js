@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const dest = fs.createWriteStream('../finalJSON/final650k.json');
+const dest = fs.createWriteStream('../finalJSON/final350k.json');
 const { getFileAsObject } = require('../loader');
 
 let records = [];
