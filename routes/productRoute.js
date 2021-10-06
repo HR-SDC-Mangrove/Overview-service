@@ -46,6 +46,11 @@ module.exports = {
       res.send(400);
     });
   },
+  updateProduct: (req, res) => {
+    console.log(req.body)
+    res.send('received')
+
+  },
 
   // products: async (req, res) => {
   //   const inputId = req.url.split('=')[1];
