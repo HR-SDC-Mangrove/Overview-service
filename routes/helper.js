@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-unused-vars */
 module.exports = {
@@ -109,4 +110,70 @@ module.exports = {
     return finalProduct;
   },
 
+  // create a function that accecpts a string, and runs the correct update function
+  // on the request body.
+  createDbUpdateObj: (requestObj) => {
+    const productUpdate = requestObj.product;
+    const featureUpdate = requestObj.feature;
+    const styleUpdate = requestObj.style;
+    const stylePhotoUpdate = requestObj.photo;
+    const styleSkuUpdate = requestObj.sku;
+    let finalDbObj;
+    let tempObj = {};
+
+    if (productUpdate) {
+      tempObj = {
+        id: requestObj.product_id ? requestObj.product_id : null,
+        name: requestObj.product_name ? requestObj.product_name : null,
+        slogan: requestObj.product_slogan ? requestObj.product_slogan : null,
+        description: requestObj.product_description ? requestObj.product_description : null,
+        category: requestObj.product_category ? requestObj.product_category : null,
+        default_price: requestObj.product_default_price ? requestObj.product_default_price : null,
+        features: requestObj.product_features ? requestObj.product_features : null,
+      };
+      finalDbObj = Object.fromEntries(Object.entries(tempObj).filter(([_, v]) => v != null));
+      finalDbObj.product = true;
+      return finalDbObj;
+    }
+    // to update product feature
+    if (featureUpdate) {
+      if (requestObj.add) {
+        tempObj.features = Array.from(requestObj.features)
+        tempObj.feature = true;
+        tempObj.add = true;
+        tempObj.id = requestObj.product_id;
+        return tempObj;
+      }
+      if (requestObj.remove) {
+        tempObj.features = Array.from(requestObj.features)
+        tempObj.feature = true;
+        tempObj.remove = true;
+        tempObj.id = requestObj.product_id;
+        return tempObj;
+      }
+    }
+    // to update a styles primitive properties
+    if (styleUpdate) {
+    // need product_id, styles_id, and the style primitive values
+      tempObj.id = requestObj.style_id;
+      tempObj.product_id_ref = requestObj.product_id;
+      tempObj.name = requestObj.style_name ? requestObj.style_name : null;
+      tempObj.original_price = requestObj.style_original_price ? requestObj.style_original_price : null;
+      tempObj.sale_price = requestObj.style_sale_price ? requestObj.style_sale_price : null;
+      tempObj.default = requestObj.style_default ? requestObj.style_default : null;
+      tempObj.photos = null;
+      tempObj.skus = null;
+      finalDbObj = Object.fromEntries(Object.entries(tempObj).filter(([_, v]) => v != null));
+      finalDbObj.style = true;
+      return finalDbObj;
+    }
+    // to update a styles photo
+    if (stylePhotoUpdate) {
+    // need product_id, style_id, and original photo or thumbail + replacement data
+    }
+    // to update a styles sku
+    if (styleSkuUpdate) {
+    // need product_id, style_id, and sku_id + replacement property/properties
+    }
+  },
 };
